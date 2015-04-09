@@ -1,0 +1,22 @@
+﻿<Properties StartupItem="GtkDemo/GtkDemo.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="CmdLineApp/Program.cs">
+    <Files>
+      <File FileName="CmdLineApp/Program.cs" Line="47" Column="30" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="CmdLineApp" expanded="True" selected="True">
+            <Node name="References" expanded="True" />
+          </Node>
+          <Node name="GtkDemo" expanded="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

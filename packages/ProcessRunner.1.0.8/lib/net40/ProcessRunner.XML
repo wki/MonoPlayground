@@ -1,0 +1,682 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProcessRunner</name>
+    </assembly>
+    <members>
+        <member name="T:TwoPS.Processes.Process">
+            <summary>
+            Represents the execution of an executable file
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.Process.Run(TwoPS.Processes.ProcessOptions)">
+            <summary>
+            Runs an executable file, as specified in <paramref name="options"/>
+            </summary>
+            <param name="options">Specifies what to run</param>
+            <returns>The result of running the executable file</returns>
+        </member>
+        <member name="M:TwoPS.Processes.Process.Run(System.String,System.String[])">
+            <summary>
+            Runs an executable file, as specified by <paramref name="fileName"/> and <paramref name="arguments" />
+            </summary>
+            <param name="fileName">The path to the executable file to be run</param>
+            <param name="arguments">Command line arguments</param>
+            <returns>The result of running the executable file</returns>
+        </member>
+        <member name="M:TwoPS.Processes.Process.Run(System.String,System.Int32,System.String[])">
+            <summary>
+            Runs an executable file, as specified by <paramref name="fileName"/> and <paramref name="arguments" />
+            </summary>
+            <param name="fileName">The path to the executable file to be run</param>
+            <param name="timeout">The time out</param>
+            <param name="arguments">Command line arguments</param>
+            <returns>The result of running the executable file</returns>
+        </member>
+        <member name="M:TwoPS.Processes.Process.#ctor(System.String,System.String[])">
+            <summary>
+            Creates a new instance of the Process class
+            </summary>
+            <param name="fileName">The path to the executable file to be run</param>
+            <param name="arguments">Command line arguments</param>
+        </member>
+        <member name="M:TwoPS.Processes.Process.#ctor(TwoPS.Processes.ProcessOptions)">
+            <summary>
+            Creates a new instance of the Process class
+            </summary>
+            <param name="options">Options specifying what to run</param>
+        </member>
+        <member name="M:TwoPS.Processes.Process.GetStartInfo">
+            <summary>
+            Gets the <see cref="T:System.Diagnostics.ProcessStartInfo"/> for the process.
+            </summary>
+            <returns>The <see cref="T:System.Diagnostics.ProcessStartInfo"/> for the process</returns>
+        </member>
+        <member name="M:TwoPS.Processes.Process.Run">
+            <summary>
+            Runs the executable file
+            </summary>
+            <returns>The result of running the executable file</returns>
+        </member>
+        <member name="M:TwoPS.Processes.Process.Cancel">
+            <summary>
+            Cancels the running of the executable file
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.Process.Started">
+            <summary>
+            An event is raised when the process starts
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.Process.StandardOutputRead">
+            <summary>
+            An event is raised when a line has been read from standard output of the process
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.Process.StandardErrorRead">
+            <summary>
+            An event is raised when a line has been read from standard error of the process
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.Process.StartInfoCreated">
+            <summary>
+            An event is raised when the start info for the process is created
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.Process.Options">
+            <summary>
+            Options specifying what to run
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.Process.StandardInput">
+            <summary>
+            A <see cref="T:System.IO.TextWriter"/>, that can be used to write text to standard input for the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.Process.Timeout">
+            <summary>
+            The time out
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.Process.Result">
+            <summary>
+            The result of running the executable file
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessEventArgs">
+            <summary>
+            Represents event arguments from a running process
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessEventArgs.#ctor(TwoPS.Processes.ProcessEventType,TwoPS.Processes.Process,System.String)">
+            <summary>
+            Creates a new instance of the ProcessEventArgs class
+            </summary>
+            <param name="eventType">The type of event</param>
+            <param name="process">The process</param>
+            <param name="line">The line</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessEventArgs.#ctor(TwoPS.Processes.ProcessEventType,TwoPS.Processes.Process)">
+            <summary>
+            Creates a new instance of the ProcessEventArgs class
+            </summary>
+            <param name="eventType">The type of event</param>
+            <param name="process">The process</param>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessEventArgs.EventType">
+            <summary>
+            Type type of event
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessEventArgs.Process">
+            <summary>
+            The Process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessEventArgs.Line">
+            <summary>
+            If the event is an output from the process this property will contain the line of text
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessEventType">
+            <summary>
+            The types of process events
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessEventType.Started">
+            <summary>
+            An event is raise when a process is started
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessEventType.StandardOutputRead">
+            <summary>
+            An event is raised when a line of text is read from thes process' standard input
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessEventType.StandardErrorRead">
+            <summary>
+            An event is raised when a line of text is read from thes process' standard error
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessOptions">
+            <summary>
+            Represents options for starting a process
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.#ctor">
+            <summary>
+            Creates a new instance of the ProcessOptions class
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.#ctor(System.String,System.String[])">
+            <summary>
+            Creates a new instance of the ProcessOptions class
+            </summary>
+            <param name="fileName">The path to the executable file to be started</param>
+            <param name="arguments">A number of arguments to add to the command line</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates a new instance of the ProcessOptions class
+            </summary>
+            <param name="fileName">The path to the executable file to be started</param>
+            <param name="arguments">A number of arguments to add to the command line</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.Int32)">
+            <summary>
+            Creates a new instance of the ProcessOptions class
+            </summary>
+            <param name="fileName">The path to the executable file to be started</param>
+            <param name="arguments">A number of arguments to add to the command line</param>
+            <param name="timeout">The timeout for the process</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.StandardInputAppend(System.String)">
+            <summary>
+            Append text to be sent to the process via standard input
+            </summary>
+            <param name="text">The text</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.StandardInputAppendLines(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Append lines to be sent to the process via standard input
+            </summary>
+            <param name="lines">The lines</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.StandardInputAppendLines(System.String[])">
+            <summary>
+            Append lines to be sent to the process via standard input
+            </summary>
+            <param name="lines">The lines</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.String[])">
+            <summary>
+            Add a number of command line arguments
+            </summary>
+            <param name="arguments">The command line arguments to be added</param>
+            <returns>True if at least one argument was added</returns>
+            <remarks>
+            <para>An argument will not be added if it is null or an empty string.</para>
+            <para>If an argument contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Add a number of command line arguments
+            </summary>
+            <param name="arguments">The command line arguments to be added</param>
+            <returns>True if at least one argument was added</returns>
+            <remarks>
+            <para>An argument will not be added if it is null or an empty string.</para>
+            <para>If an argument contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.Object)">
+            <summary>
+            Add a command line argument
+            </summary>
+            <param name="value">The command line argument to be added</param>
+            <returns>True if the argument was added</returns>
+            <remarks>
+            <para>The argument will not be added if <paramref name="value"/> is null or converts to an empty string.</para>
+            <para>If <paramref name="value"/> contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.String)">
+            <summary>
+            Add a command line argument
+            </summary>
+            <param name="value">The command line argument to be added</param>
+            <returns>True if the argument was added</returns>
+            <remarks>
+            <para>The argument will not be added if <paramref name="value"/> is null or an empty string.</para>
+            <para>If <paramref name="value"/> contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.String,System.Object)">
+            <summary>
+            Add two command line arguments: <paramref name="option"/> and <paramref name="value"/>.
+            </summary>
+            <param name="option">The command line option to be added</param>
+            <param name="value">The option value</param>
+            <returns>True if the option was added</returns>
+            <remarks>
+            <para>The option will not be added if either <paramref name="option"/> or <paramref name="value"/> is null or an empty string.</para>
+            <para>If <paramref name="option"/> contains a space it will be quoted.</para>
+            <para>If <paramref name="value"/> contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.String,System.String)">
+            <summary>
+            Add two command line arguments: <paramref name="option"/> and <paramref name="value"/>.
+            </summary>
+            <param name="option">The command line option to be added</param>
+            <param name="value">The option value</param>
+            <returns>True if the option was added</returns>
+            <remarks>
+            <para>The option will not be added if either <paramref name="option"/> or <paramref name="value"/> is null or an empty string.</para>
+            <para>If <paramref name="option"/> contains a space it will be quoted.</para>
+            <para>If <paramref name="value"/> contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.Add(System.String,System.Nullable{System.Boolean})">
+            <summary>
+            Add a command line option if the <paramref name="value"/> is true.
+            </summary>
+            <param name="option">The command line option to be added</param>
+            <param name="value">Specifies whether to add the option</param>
+            <returns>True if the option was added</returns>
+            <remarks>
+            <para>If <paramref name="option"/> contains a space it will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.AddSwitch(System.String,System.String)">
+            <summary>
+            Add a command line arguments composed of <paramref name="option"/> and <paramref name="value"/>.
+            </summary>
+            <param name="option">The command line option to be added</param>
+            <param name="value">The option value</param>
+            <returns>True if the option was added</returns>
+            <remarks>The option will not be added if either <paramref name="option"/> or <paramref name="value"/> is null or an empty string.</remarks>
+            <remarks>
+            <para>The option will not be added if either <paramref name="option"/> or <paramref name="value"/> is null or an empty string.</para>
+            <para>If <paramref name="option"/> or <paramref name="value"/> contains a space the argument will be quoted.</para>
+            </remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessOptions.QuoteArgument(System.String)">
+            <summary>
+            Quotes a command line argument, if necessary.
+            <para>
+            See <a href="http://msdn.microsoft.com/en-us/library/vstudio/system.environment.getcommandlineargs.aspx">Environment.GetCommandLineArgs Method</a>
+            </para>
+            </summary>
+            <param name="argument"></param>
+            <returns>The quoted argument</returns>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.EnvironmentVariables">
+            <summary>
+            Gets search paths for files, directories for temporary files, application-specific
+            options, and other similar information.
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.LogStandardOutput">
+            <summary>
+            Specifies whether to log standard output from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.LogStandardError">
+            <summary>
+            Specifies whether to log standard error from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.AutoCloseStandardInput">
+            <summary>
+            Specifies whether to close standard input automatically. Default is true.
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.StandardInputEncoding">
+            <summary>
+            Specifies the encoding of standard output from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.StandardOutputEncoding">
+            <summary>
+            Specifies the encoding of standard output from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.StandardErrorEncoding">
+            <summary>
+            Specifies the encoding of standard error from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.FileName">
+            <summary>
+            The path to the executable file to be started
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.Timeout">
+            <summary>
+            The timeout for the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.WorkingDirectory">
+            <summary>
+            The working directory for the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.Arguments">
+            <summary>
+            The command line arguments
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.CommandLine">
+            <summary>
+            The full command line for the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.StandardInput">
+            <summary>
+            The text to be sent to the process via standard input
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessOptions.HasStandardInput">
+            <summary>
+            Specifies whether there is any text to be sent to the process via standard input
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessResult">
+            <summary>
+            Represents the results of running an executable file
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessResult.#ctor(TwoPS.Processes.Process,System.String)">
+            <summary>
+            Creates a new instance of the ProcessResult class
+            </summary>
+            <param name="process">The process that was run</param>
+            <param name="commandLine">The command line</param>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.CommandLine">
+            <summary>
+            The command line
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.ExitCode">
+            <summary>
+            The exit code
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.Status">
+            <summary>
+            The last state of the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.Success">
+            <summary>
+            Specifies whether the process ran successfully
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.StandardOutputList">
+            <summary>
+            Standard output from the process split into lines
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.StandardErrorList">
+            <summary>
+            Standard error from the process split into lines
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.AllOutputList">
+            <summary>
+            Standard output and standard error from the process split into lines
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.StandardOutput">
+            <summary>
+            Standard output from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.StandardError">
+            <summary>
+            Standard error from the process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessResult.AllOutput">
+            <summary>
+            Standard output and standard error from the process
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessRunner">
+            <summary>
+            Wraps the logic for calling an executable file
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunner.#ctor(System.String)">
+            <summary>
+            Creates a new instance of the ProcessRunner class
+            </summary>
+            <param name="exeFile">The executable file</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunner.Log(System.String)">
+            <summary>
+            Logs a line of text
+            </summary>
+            <param name="line">The line to be logged</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunner.CreateProcessOptions">
+            <summary>
+            Creates a new instance of <see cref="T:TwoPS.Processes.ProcessOptions"/> initialised with <see cref="P:TwoPS.Processes.ProcessRunner.ExeFile"/>.
+            </summary>
+            <returns>The new <see cref="T:TwoPS.Processes.ProcessOptions"/></returns>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunner.HasSuccess(TwoPS.Processes.ProcessResult)">
+            <summary>
+            Checks whether the execution has been succesful
+            </summary>
+            <param name="result">The result of running the process</param>
+            <returns>True if succesful</returns>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunner.Run(TwoPS.Processes.ProcessRunnerOptions)">
+            <summary>
+            Runs an executable file, as specified by <paramref name="options"/>
+            </summary>
+            <param name="options">Specifies what to run</param>
+            <returns>The result of running the process</returns>
+        </member>
+        <member name="E:TwoPS.Processes.ProcessRunner.Started">
+            <summary>
+            An event is raised when a process is started
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.ProcessRunner.StandardOutputRead">
+            <summary>
+            An event is raised when a line has been read from standard output of the process
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.ProcessRunner.StandardErrorRead">
+            <summary>
+            An event is raised when a line has been read from standard error of the process
+            </summary>
+        </member>
+        <member name="E:TwoPS.Processes.ProcessRunner.StartInfoCreated">
+            <summary>
+            An event is raised when the start info for the process is created
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessRunner.ExeFile">
+            <summary>
+            The executable file
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessRunnerException">
+            <summary>
+            The exception that is thrown when a process error occurs.
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:TwoPS.Processes.ProcessRunnerException"/> class.
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TwoPS.Processes.ProcessRunnerException"/> class
+            with a specified error message.
+            </summary>
+            <param name="message">A message that describes the error.</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerException.#ctor(System.String,System.Object[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:TwoPS.Processes.ProcessRunnerException"/> class
+            with a specified error message formated using <see cref="M:System.String.Format(System.String,System.Object[])"/>.
+            </summary>
+            <param name="format">A composite format string for the message.</param>
+            <param name="args">An object array that contains zero or more objects to format.</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TwoPS.Processes.ProcessRunnerException"/> class with a specified
+            error message and a reference to the inner exception that is the cause of
+            this exception.        
+            </summary>
+            <param name="message">A message that describes the error.</param>
+            <param name="exception">
+            The exception that is the cause of the current exception, or a null reference
+            if no inner exception is specified.
+            </param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:TwoPS.Processes.ProcessRunnerException"/> class with serialized data.
+            </summary>
+            <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.</param>
+            <param name="context">The <see cref="T:System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination.</param>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessRunnerOptions">
+            <summary>
+            Represents options for <see cref="M:TwoPS.Processes.ProcessRunner.#ctor(System.String)"/>
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerOptions.#ctor">
+            <summary>
+            Creates a new instance of the ProcessRunnerOptions class
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerOptions.SetProcessOptions(TwoPS.Processes.ProcessOptions)">
+            <summary>
+            This method gets called to set options for the process
+            </summary>
+            <param name="processOptions">A <see cref="T:TwoPS.Processes.ProcessOptions"/> object, that contains the options for the process</param>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerOptions.AddOtherArguments(TwoPS.Processes.ProcessOptions)">
+            <summary>
+            This method gets called to add extra command line arguments by calling <see cref="P:TwoPS.Processes.ProcessRunnerOptions.OtherArguments"/> if it is set.
+            </summary>
+            <param name="processOptions">A <see cref="T:TwoPS.Processes.ProcessOptions"/> object, that contains the options for the process</param>
+            <remarks><para>This method will typically be called from <see cref="M:TwoPS.Processes.ProcessRunnerOptions.SetProcessOptions(TwoPS.Processes.ProcessOptions)"/> in derived classes.</para></remarks>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessRunnerOptions.AddStandardInput(TwoPS.Processes.ProcessOptions)">
+            <summary>
+            This method gets called to add standard input by calling <see cref="P:TwoPS.Processes.ProcessRunnerOptions.WriteStandardInput"/> if it is set.
+            </summary>
+            <param name="processOptions">A <see cref="T:TwoPS.Processes.ProcessOptions"/> object, that contains the options for the process</param>
+            <remarks><para>This method will typically be called from <see cref="M:TwoPS.Processes.ProcessRunnerOptions.SetProcessOptions(TwoPS.Processes.ProcessOptions)"/> in derived classes.</para></remarks>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessRunnerOptions.OtherArguments">
+            <summary>
+            An delegate, that gets called to add command line arguments
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessRunnerOptions.WriteStandardInput">
+            <summary>
+            An delegate, that gets called to add standard input
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessRunnerOptions.LogStandardOutput">
+            <summary>
+            Specifies whether to log standard output
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.ProcessRunnerOptions.LogStandardError">
+            <summary>
+            Specifies whether to log standard error
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessStatus">
+            <summary>
+            Specifies what state the process is in
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessStatus.NotStarted">
+            <summary>
+            The process has not started
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessStatus.Started">
+            <summary>
+            The process has started
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessStatus.TimedOut">
+            <summary>
+            The process has stopped because it timed out
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessStatus.Cancelled">
+            <summary>
+            The process has stopped because it was cancelled
+            </summary>
+        </member>
+        <member name="F:TwoPS.Processes.ProcessStatus.Finished">
+            <summary>
+            The process has stopped because it was finished
+            </summary>
+        </member>
+        <member name="T:TwoPS.Processes.ProcessUtils">
+            <summary>
+            Utility methods
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessUtils.FindExecutable(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Searches for an executable file in a list of directories and in the system path.
+            </summary>
+            <param name="exeName">The name of the executable file to find</param>
+            <param name="paths">A list of paths in wich to search for the executable file</param>
+            <returns>The path of the first file found whose name is <paramref name="exeName"/></returns>
+        </member>
+        <member name="M:TwoPS.Processes.ProcessUtils.FindExecutable(System.String,System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Searches for an executable file in a list of directories and in the system path.
+            </summary>
+            <param name="exeName">The name of the executable file to find</param>
+            <param name="workingDirectory">Working directory for any non-rooted paths</param>
+            <param name="paths">A list of paths in wich to search for the executable file</param>
+            <returns>The path of the first file found whose name is <paramref name="exeName"/></returns>
+        </member>
+        <member name="T:TwoPS.Processes.StartInfoCreatedEventArgs">
+            <summary>
+            Event args for an event that is raised when the start info for the process is created
+            </summary>
+        </member>
+        <member name="M:TwoPS.Processes.StartInfoCreatedEventArgs.#ctor(TwoPS.Processes.Process,System.Diagnostics.ProcessStartInfo)">
+            <summary>
+            Creates a new instance of the <see cref="T:TwoPS.Processes.StartInfoCreatedEventArgs"/> class
+            </summary>
+            <param name="process">The process</param>
+            <param name="startInfo">The <see cref="T:System.Diagnostics.ProcessStartInfo"/> for the process</param>
+        </member>
+        <member name="P:TwoPS.Processes.StartInfoCreatedEventArgs.Process">
+            <summary>
+            The Process
+            </summary>
+        </member>
+        <member name="P:TwoPS.Processes.StartInfoCreatedEventArgs.StartInfo">
+            <summary>
+            The StartInfo
+            </summary>
+        </member>
+    </members>
+</doc>
