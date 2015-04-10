@@ -40,7 +40,7 @@ namespace AdobeApp
             throw new NotImplementedException();
 
             // - JavaScript Dateien sammeln bottom-up bis zur obersten Assembly
-            //   in Stack-Aufrufreihenfolge. Kann man die ermitteln?
+            //   in umgekehrter Stack-Aufrufreihenfolge. Kann man die ermitteln?
             // - Datenstruktur von Invocation als JSON erzeugen
             // - AppleScript erzeugen
             // - AppleScript starten
