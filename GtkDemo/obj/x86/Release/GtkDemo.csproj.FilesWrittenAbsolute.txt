@@ -1,6 +1,0 @@
-/Users/wolfgang/proj/GtkDemo/GtkDemo/obj/x86/Release/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/Users/wolfgang/proj/GtkDemo/GtkDemo/obj/x86/Release/GtkDemo.gtk-gui.gui.stetic
-/Users/wolfgang/proj/GtkDemo/GtkDemo/bin/Release/GtkDemo.exe.mdb
-/Users/wolfgang/proj/GtkDemo/GtkDemo/bin/Release/GtkDemo.exe
-/Users/wolfgang/proj/GtkDemo/GtkDemo/obj/x86/Release/GtkDemo.exe
-/Users/wolfgang/proj/GtkDemo/GtkDemo/obj/x86/Release/GtkDemo.exe.mdb
