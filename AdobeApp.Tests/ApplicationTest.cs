@@ -3,6 +3,7 @@ using AdobeApp;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.IO;
 
 namespace AdobeApp.Tests
 {
@@ -87,6 +88,96 @@ namespace AdobeApp.Tests
                     assemblies.Select(a => a.GetName().Name)
                 ).StartsWith("AdobeApp/AdobeApp.Tests")
             );
+        }
+
+        [Test]
+        public void AdobeApp_CopyJavascriptsTo_FillsDir()
+        {
+            // Arrange
+            using (var js = new JavaScriptDir())
+            {
+                // Act
+                app.CopyJavaScriptsTo(js);
+
+                // Assert
+                Assert.IsTrue(File.Exists(Path.Combine(js.Dir, "dummy.js")));
+                Assert.IsTrue(File.Exists(Path.Combine(js.Dir, "adobe.js")));
+            };
+        }
+
+        [Test]
+        public void AdobeApp_GenerateFunctionCalls_LooksGood()
+        {
+            // Arrange
+            var invocation =
+                app.Invocation("some.js")
+                    .Open("foo.indd")
+                    .DoSomething("foo", "bar");
+
+            // Act
+            var functionCalls = app.GenerateFunctionCalls(invocation);
+            Console.WriteLine(functionCalls);
+
+            // Assert
+            Assert.AreEqual(
+                "[{\"Name\":\"Open\",\"Arguments\":[{\"Path\":\"foo.indd\"}]},{\"Name\":\"DoSomething\",\"Arguments\":[\"foo\",\"bar\"]}]",
+                functionCalls
+            );
+        }
+
+        [Test]
+        public void AdobeApp_ToUtxtFromStringABC_CreatesDataLine()
+        {
+            // Act
+            var line = app.ToUtxt("ABC");
+
+            // Assert
+            Assert.AreEqual(
+                "\u00c7data utxt004100420043\u00c8 as Unicode text",
+                line
+            );
+        }
+
+        [Test]
+        public void AdobeApp_ToUtxtFromStringUmlaut_CreatesDataLine()
+        {
+            // Act
+            var line = app.ToUtxt("ÖÄU");
+
+            // Assert
+            Assert.AreEqual(
+                "\u00c7data utxt00D600C40055\u00c8 as Unicode text",
+                line
+            );
+        }
+
+        [Test]
+        public void AdobeApp_ToUtxtAssignment_CreatesAssignments()
+        {
+            // Act
+            var assignment = app.ToUtxtAssignment("script_args", "012345689012345689012345689012345689012345689");
+            Console.WriteLine(assignment);
+
+            // Assert
+            Assert.IsTrue(assignment.StartsWith("set script_args to"));
+
+            // TODO: must have 3 lines
+        }
+
+        [Test]
+        public void AdobeApp_GenerateAppleScript_CreatesScript()
+        {
+            // Arrange
+            app.Name = "Adobe InDesign CC";
+
+            // Act
+            var appleScript = app.GenerateAppleScript("foo.js", "\"asdf\"");
+            Console.WriteLine(appleScript);
+
+            // Assert
+            Assert.IsTrue(true);
+
+            // TODO: add some more tests
         }
     }
 }

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace AdobeApp
 {
@@ -24,15 +26,21 @@ namespace AdobeApp
     /// </example>
     public class Application
     {
+        // Hint: Resource names are dot-separated.
+        private readonly string JAVASCRIPT_FOLDER_NAME = ".javascript.";
+
         /// <summary>
         /// Gets or sets the name.
         /// </summary>
         /// <value>The full name of the application</value>
         public string Name { get; set; }
 
+        public int Timeout { get; set; }
+
         public Application(string name)
         {
             Name = name;
+            Timeout = 1800;
         }
 
         public dynamic Invocation(string javaScriptFile)
@@ -42,17 +50,123 @@ namespace AdobeApp
 
         public object Invoke(Invocation invocation)
         {
-            throw new NotImplementedException();
+            using (var dir = new JavaScriptDir())
+            {
+                CopyJavaScriptsTo(dir);
+                var functionCalls = GenerateFunctionCalls(invocation);
+                var appleScript = GenerateAppleScript(invocation.JavaScriptFile, functionCalls);
 
-            // - JavaScript Dateien sammeln bottom-up bis zur obersten Assembly
-            //   in umgekehrter Stack-Aufrufreihenfolge. Kann man die ermitteln?
-            // - Datenstruktur von Invocation als JSON erzeugen
-            // - AppleScript erzeugen
-            // - AppleScript starten
-            // - Rückgabewerte deserialisieren
+                // - AppleScript starten
+                // - Rückgabewerte deserialisieren
+
+                return new { Foo = 123 };
+            }
         }
 
-        // actually: list assemblies in call stack
+        // public for easier testability
+        public void CopyJavaScriptsTo(JavaScriptDir dir)
+        {
+            foreach (var assembly in ListAssemblies())
+            {
+                foreach (var resource in ListJavaScriptResources(assembly))
+                {
+                    int folderPosition = resource.LastIndexOf(JAVASCRIPT_FOLDER_NAME, StringComparison.OrdinalIgnoreCase);
+                    var fileName = resource.Substring(folderPosition + JAVASCRIPT_FOLDER_NAME.Length);
+
+                    dir.SaveJavaScript(fileName, LoadJavaScriptResource(assembly, resource));
+                }
+            }
+        }
+
+        public string GenerateFunctionCalls(Invocation invocation)
+        {
+            var jsonSerializer = new JsonSerializer();
+            var writer = new StringWriter();
+
+            jsonSerializer.Serialize(writer, invocation.FunctionCalls);
+
+            return writer.ToString();
+        }
+
+        public string GenerateAppleScript(string javaScriptFile, string scriptArguments)
+        {
+            var appleScript = new StringBuilder();
+
+            appleScript.AppendLine(String.Format("tell application \"{0}\"", Name));
+            appleScript.AppendLine(String.Format("with timeout of {0} seconds", Timeout));
+
+            appleScript.AppendLine(ToUtxtAssignment("script_arguments", scriptArguments));
+
+            if (Name.Contains("InDesign"))
+            {
+                appleScript.AppendLine(
+                    String.Format(
+                        "do script (POSIX file \"{0}\") language javascript with arguments script_arguments undo mode fast entire script", 
+                        javaScriptFile
+                    )
+                );
+            }
+            else
+            {
+                appleScript.AppendLine(
+                    String.Format(
+                        "do javascript \"$.evalFile('{0}')\" with arguments script_arguments",
+                        javaScriptFile
+                    )
+                );
+            }    
+
+            appleScript.AppendLine("end timeout");
+            appleScript.AppendLine("end tell");
+
+            return appleScript.ToString();
+        }
+
+        // encode Json String into a unicode string variable assignment that can be put into our AppleScript
+        public string ToUtxtAssignment(string variable, string arguments)
+        {
+            var uTxt = new StringBuilder();
+            uTxt.AppendLine(
+                String.Format("set {0} to \"\"", variable)
+            );
+
+            foreach (var chunk in SplitIntoChunks(arguments))
+            {
+                uTxt.AppendLine(
+                    String.Format("set {0} to {0} & {1}", variable, ToUtxt(chunk))
+                );
+            }
+
+            return uTxt.ToString();
+        }
+
+        // encode a single string into a data utxt applescript string
+        public string ToUtxt(string content)
+        {
+            string encodedContent =
+                String.Join(
+                    "", 
+                    content.ToCharArray().Select(c => ((int)c).ToString("X4"))
+                );
+
+            // FIXME: is unicode encoding here correct?
+            return String.Format("\u00c7data utxt{0}\u00c8 as Unicode text", encodedContent);
+        }
+
+        public  IEnumerable<string> SplitIntoChunks(string content, int chunkSize = 40)
+        {
+            for (int i = 0; i < content.Length; i += chunkSize)
+            {
+                var length = i + chunkSize > content.Length
+                    ? content.Length - i
+                    : chunkSize;
+                
+                yield return content.Substring(i, length);
+            }
+        }
+
+        // actually: list assemblies in call stack but this is exactly
+        // the order in which we want to load JavaScript files
         public IEnumerable<Assembly> ListAssemblies()
         {
             var stack = new StackTrace();
@@ -66,7 +180,7 @@ namespace AdobeApp
         public IEnumerable<string> ListJavaScriptResources(Assembly assembly)
         {
             return assembly.GetManifestResourceNames()
-                .Where(r => r.IndexOf(".javascript.", StringComparison.OrdinalIgnoreCase) > 0);
+                .Where(r => r.IndexOf(JAVASCRIPT_FOLDER_NAME, StringComparison.OrdinalIgnoreCase) > 0);
         }
 
         public string LoadJavaScriptResource(Assembly assembly, string resourceName)

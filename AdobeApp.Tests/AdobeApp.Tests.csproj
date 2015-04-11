@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
     <Compile Include="InvocationTest.cs" />
+    <Compile Include="JavaScriptDirTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
