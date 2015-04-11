@@ -152,10 +152,10 @@ namespace AdobeApp.Tests
         }
 
         [Test]
-        public void AdobeApp_ToUtxtAssignment_CreatesAssignments()
+        public void AdobeApp_ArgumentsAsAssignment_CreatesAssignments()
         {
             // Act
-            var assignment = app.ToUtxtAssignment("script_args", "012345689012345689012345689012345689012345689");
+            var assignment = app.ArgumentsAsAssignment("script_args", "012345689012345689012345689012345689012345689");
             Console.WriteLine(assignment);
 
             // Assert

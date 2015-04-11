@@ -77,12 +77,7 @@ namespace AdobeApp
 
         public string GenerateFunctionCalls(Invocation invocation)
         {
-            var jsonSerializer = new JsonSerializer();
-            var writer = new StringWriter();
-
-            jsonSerializer.Serialize(writer, invocation.FunctionCalls);
-
-            return writer.ToString();
+            return JsonConvert.SerializeObject(invocation.FunctionCalls);
         }
 
         public string GenerateAppleScript(string javaScriptFile, string scriptArguments)
@@ -92,7 +87,7 @@ namespace AdobeApp
             appleScript.AppendLine(String.Format("tell application \"{0}\"", Name));
             appleScript.AppendLine(String.Format("with timeout of {0} seconds", Timeout));
 
-            appleScript.AppendLine(ToUtxtAssignment("script_arguments", scriptArguments));
+            appleScript.AppendLine(ArgumentsAsAssignment("script_arguments", scriptArguments));
 
             if (Name.Contains("InDesign"))
             {
@@ -120,7 +115,7 @@ namespace AdobeApp
         }
 
         // encode Json String into a unicode string variable assignment that can be put into our AppleScript
-        public string ToUtxtAssignment(string variable, string arguments)
+        public string ArgumentsAsAssignment(string variable, string arguments)
         {
             var uTxt = new StringBuilder();
             uTxt.AppendLine(
@@ -170,10 +165,7 @@ namespace AdobeApp
 
         public object DeserializeResult(string serializedResult)
         {
-
-            var jsonSerializer = new JsonSerializer();
-            var reader = new StringReader(serializedResult);
-            return jsonSerializer.Deserialize(reader);
+            return JsonConvert.DeserializeObject(serializedResult);
         }
 
         // actually: list assemblies in call stack but this is exactly
