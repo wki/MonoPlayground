@@ -48,4 +48,10 @@
       <Name>AdobeApp</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="JavaScript\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\dummy.js" />
+  </ItemGroup>
 </Project>

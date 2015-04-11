@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Reflection;
+using System.Linq;
+using System.Collections.Generic;
+using System.IO;
 
 namespace AdobeApp
 {
@@ -45,6 +50,32 @@ namespace AdobeApp
             // - AppleScript erzeugen
             // - AppleScript starten
             // - Rückgabewerte deserialisieren
+        }
+
+        // actually: list assemblies in call stack
+        public IEnumerable<Assembly> ListAssemblies()
+        {
+            var stack = new StackTrace();
+
+            return stack.GetFrames()
+                .Select(f => f.GetMethod().DeclaringType.Assembly)
+                .Where(a => !a.GetName().Name.StartsWith("mscorlib"))
+                .Distinct();
+        }
+
+        public IEnumerable<string> ListJavaScriptResources(Assembly assembly)
+        {
+            return assembly.GetManifestResourceNames()
+                .Where(r => r.IndexOf(".javascript.", StringComparison.OrdinalIgnoreCase) > 0);
+        }
+
+        public string LoadJavaScriptResource(Assembly assembly, string resourceName)
+        {
+            using (var stream = assembly.GetManifestResourceStream(resourceName))
+            using (var reader = new StreamReader(stream))
+            {
+                return reader.ReadToEnd();
+            }
         }
     }
 }
