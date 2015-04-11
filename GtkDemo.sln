@@ -9,6 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdobeApp", "AdobeApp\AdobeA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdobeApp.Tests", "AdobeApp.Tests\AdobeApp.Tests.csproj", "{16AD8EFC-2619-490B-BD39-870322119DD3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28EB0E06-9EF5-411B-A6FB-10E951562650}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -40,6 +45,8 @@ Global
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Debug|x86.Build.0 = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Release|x86.ActiveCfg = Release|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
