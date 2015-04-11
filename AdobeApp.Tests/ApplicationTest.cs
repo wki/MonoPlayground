@@ -18,18 +18,31 @@ namespace AdobeApp.Tests
         [Test]
         public void AdobeApp_Constructor_SetsName()
         {
-            // assert
+            // Assert
             Assert.AreEqual("Foo", app.Name);
         }
 
         [Test]
         public void AdobeApp_Invocation_CreatesInvocationObject()
         {
-            // Arrange
+            // Act
             var invocation = app.Invocation("some.js");
 
             // Assert
             Assert.IsNotNull(invocation);
+        }
+
+        [Test]
+        public void AdobeApp_InvocationChaining_CreatesFunctionEntries()
+        {
+            // Act
+            var invocation =
+                app.Invocation("some.js")
+                    .Open("foo.indd")
+                    .DoSomething("foo", "bar");
+
+            // Assert
+            Assert.AreEqual(2, ((Invocation)invocation).FunctionCalls.Count);
         }
     }
 }

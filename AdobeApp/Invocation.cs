@@ -38,7 +38,7 @@ namespace AdobeApp
             throw new NotImplementedException();
         }
 
-        public Invocation Open(string path)
+        public dynamic Open(string path)
         {
             FunctionCalls.Add(
                 new FunctionCall
@@ -46,7 +46,7 @@ namespace AdobeApp
                     Name = "Open",
                     Arguments = new object[]
                     {
-                        new { Open = path }
+                        new { Path = path }
                     },
                 }
             );
@@ -54,7 +54,23 @@ namespace AdobeApp
             return this;
         }
 
-        public Invocation Close()
+        public dynamic SaveAs(string path)
+        {
+            FunctionCalls.Add(
+                new FunctionCall
+                {
+                    Name = "Save",
+                    Arguments = new object[]
+                    {
+                        new { Path = path }
+                    },
+                }
+            );
+
+            return this;
+        }
+
+        public dynamic Close()
         {
             FunctionCalls.Add(
                 new FunctionCall
@@ -67,7 +83,7 @@ namespace AdobeApp
             return this;
         }
 
-        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out object result)
+        public override bool TryInvokeMember(InvokeMemberBinder binder, object[] args, out dynamic result)
         {
             FunctionCalls.Add(
                 new FunctionCall

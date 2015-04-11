@@ -38,6 +38,22 @@ namespace AdobeApp.Tests
             // Assert
             Assert.AreEqual(1, invocation.FunctionCalls.Count);
             Assert.AreEqual("Open", invocation.FunctionCalls[0].Name);
+            // Assert.AreEqual("mydocument.indd", invocation.FunctionCalls[0].Arguments[0].Path);
+        }
+
+        [Test]
+        public void Invocation_SaveAs_AddsSaveFunctionCall()
+        {
+            // Act
+            invocation.SaveAs("mydocument.indd");
+
+            // Assert
+            Assert.AreEqual(1, invocation.FunctionCalls.Count);
+            Assert.AreEqual("Save", invocation.FunctionCalls[0].Name);
+//            Assert.AreEqual(
+//                new Object[]{ new { Path = "mydocument.indd"} },
+//                invocation.FunctionCalls[0].Arguments
+//            );
         }
 
         [Test]
