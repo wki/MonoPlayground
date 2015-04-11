@@ -97,7 +97,7 @@ namespace AdobeApp.Tests
             using (var js = new JavaScriptDir())
             {
                 // Act
-                app.CopyJavaScriptFilesTo(js);
+                app.CollectJavaScriptFiles(js);
 
                 // Assert
                 Assert.IsTrue(File.Exists(Path.Combine(js.Dir, "dummy.js")));

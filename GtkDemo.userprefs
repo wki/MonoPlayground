@@ -2,29 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
   <MonoDevelop.Ide.Workbench ActiveDocument="AdobeApp/Application.cs">
     <Files>
-      <File FileName="AdobeApp/Application.cs" Line="168" Column="37" />
-      <File FileName="AdobeApp/JavaScriptDir.cs" Line="23" Column="39" />
-      <File FileName="AdobeApp.Tests/ApplicationTest.cs" Line="158" Column="55" NotebookId="1" />
-      <File FileName="AdobeApp.Tests/InvocationTest.cs" Line="21" Column="28" NotebookId="1" />
-      <File FileName="AdobeApp.Tests/JavaScriptDirTest.cs" Line="30" Column="1" NotebookId="1" />
+      <File FileName="AdobeApp/Application.cs" Line="65" Column="40" />
+      <File FileName="AdobeApp.Tests/ApplicationTest.cs" Line="100" Column="40" />
+      <File FileName="AdobeApp/AppleScriptException.cs" Line="9" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="AdobeApp" expanded="True">
-            <Node name="JavaScript" expanded="True" />
-            <Node name="Application.cs" selected="True" />
-          </Node>
-          <Node name="AdobeApp.Tests" expanded="True">
-            <Node name="References" expanded="True" />
-            <Node name="JavaScript" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

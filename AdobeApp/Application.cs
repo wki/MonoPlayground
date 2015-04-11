@@ -53,7 +53,7 @@ namespace AdobeApp
         {
             using (var dir = new JavaScriptDir())
             {
-                CopyJavaScriptFilesTo(dir);
+                CollectJavaScriptFiles(dir);
                 var functionCalls = GenerateFunctionCalls(invocation);
                 var appleScript = GenerateAppleScript(dir.JavaScript(invocation.JavaScriptFile), functionCalls);
                 var serializedResult = RunAppleScript(appleScript);
@@ -62,7 +62,7 @@ namespace AdobeApp
         }
 
         // public for easier testability
-        public void CopyJavaScriptFilesTo(JavaScriptDir dir)
+        public void CollectJavaScriptFiles(JavaScriptDir dir)
         {
             foreach (var assembly in ListAssemblies())
             {
