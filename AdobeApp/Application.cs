@@ -3,7 +3,7 @@
 namespace AdobeApp
 {
     /// <summary>
-    /// Application represents an Adobe Application
+    /// Application represents an Adobe Application getting controlled by JavaScript
     /// </summary>
     /// <example>
     /// var indesign = new Application("Adobe InDesign CC");
