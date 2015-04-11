@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using TwoPS.Processes;
 using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AdobeApp
 {
@@ -52,16 +53,16 @@ namespace AdobeApp
         {
             using (var dir = new JavaScriptDir())
             {
-                CopyJavaScriptsTo(dir);
+                CopyJavaScriptFilesTo(dir);
                 var functionCalls = GenerateFunctionCalls(invocation);
-                var appleScript = GenerateAppleScript(invocation.JavaScriptFile, functionCalls);
+                var appleScript = GenerateAppleScript(dir.JavaScript(invocation.JavaScriptFile), functionCalls);
                 var serializedResult = RunAppleScript(appleScript);
                 return DeserializeResult(serializedResult);
             }
         }
 
         // public for easier testability
-        public void CopyJavaScriptsTo(JavaScriptDir dir)
+        public void CopyJavaScriptFilesTo(JavaScriptDir dir)
         {
             foreach (var assembly in ListAssemblies())
             {
@@ -159,8 +160,18 @@ namespace AdobeApp
 
         public string RunAppleScript(string appleScript)
         {
-            // pipe appleScript into `/usr/bin/osascript -`
-            return "";
+            var process = new Process("/usr/bin/osascript", "-");
+            var task = Task.Run(() => process.Run());
+            process.StandardInput.Write(appleScript);
+            process.StandardInput.Close();
+            var result = task.Result;
+
+            if (result.ExitCode != 0)
+            {
+                throw new AppleScriptException(result.StandardError);
+            }
+
+            return result.StandardOutput;
         }
 
         public object DeserializeResult(string serializedResult)
@@ -172,7 +183,7 @@ namespace AdobeApp
         // the order in which we want to load JavaScript files
         public IEnumerable<Assembly> ListAssemblies()
         {
-            var stack = new StackTrace();
+            var stack = new System.Diagnostics.StackTrace();
 
             return stack.GetFrames()
                 .Select(f => f.GetMethod().DeclaringType.Assembly)

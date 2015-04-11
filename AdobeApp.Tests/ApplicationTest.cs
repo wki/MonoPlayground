@@ -91,13 +91,13 @@ namespace AdobeApp.Tests
         }
 
         [Test]
-        public void AdobeApp_CopyJavascriptsTo_FillsDir()
+        public void AdobeApp_CopyJavascriptFilesTo_FillsDir()
         {
             // Arrange
             using (var js = new JavaScriptDir())
             {
                 // Act
-                app.CopyJavaScriptsTo(js);
+                app.CopyJavaScriptFilesTo(js);
 
                 // Assert
                 Assert.IsTrue(File.Exists(Path.Combine(js.Dir, "dummy.js")));
@@ -155,7 +155,7 @@ namespace AdobeApp.Tests
         public void AdobeApp_ArgumentsAsAssignment_CreatesAssignments()
         {
             // Act
-            var assignment = app.ArgumentsAsAssignment("script_args", "012345689012345689012345689012345689012345689");
+            var assignment = app.ArgumentsAsAssignment("script_args", "012345689.12345689.12345689.12345689.12345689");
             Console.WriteLine(assignment);
 
             // Assert

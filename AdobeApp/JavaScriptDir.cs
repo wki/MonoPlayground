@@ -15,7 +15,12 @@ namespace AdobeApp
 
         public void SaveJavaScript(string fileName, string content)
         {
-            File.WriteAllText(Path.Combine(Dir, fileName), content);
+            File.WriteAllText(JavaScript(fileName), content);
+        }
+
+        public string JavaScript(string fileName)
+        {
+            return Path.Combine(Dir, fileName);
         }
 
         public void Dispose()
