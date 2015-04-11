@@ -28,5 +28,49 @@ namespace AdobeApp.Tests
             Assert.IsNotNull(invocation.FunctionCalls);
             Assert.AreEqual(0, invocation.FunctionCalls.Count);
         }
+
+        [Test]
+        public void Invocation_Open_AddsOpenFunctionCall()
+        {
+            // Act
+            invocation.Open("mydocument.indd");
+
+            // Assert
+            Assert.AreEqual(1, invocation.FunctionCalls.Count);
+            Assert.AreEqual("Open", invocation.FunctionCalls[0].Name);
+        }
+
+        [Test]
+        public void Invocation_Close_AddsCloseFunctionCall()
+        {
+            // Arrange
+            invocation.FunctionCalls.Add(null);
+
+            // Act
+            invocation.Close();
+
+            // Assert
+            Assert.AreEqual(2, invocation.FunctionCalls.Count);
+            Assert.AreEqual("Close", invocation.FunctionCalls[1].Name);
+        }
+
+        [Test]
+        public void Invocation_CustomFunctionCall_AddsFunctionCall()
+        {
+            // Arrange
+            // this ensures all other situations still offer Intellisense
+            dynamic i = invocation;
+
+            // Act
+            i.DoSomething("foo", "bar");
+
+            // Assert
+            Assert.AreEqual(1, invocation.FunctionCalls.Count);
+            Assert.AreEqual("DoSomething", invocation.FunctionCalls[0].Name);
+            Assert.AreEqual(
+                new object[] { "foo", "bar" },
+                invocation.FunctionCalls[0].Arguments
+            );
+        }
     }
 }

@@ -59,7 +59,7 @@ namespace AdobeApp
             FunctionCalls.Add(
                 new FunctionCall
                 {
-                    Name = "Open",
+                    Name = "Close",
                     Arguments = new object[] {},
                 }
             );

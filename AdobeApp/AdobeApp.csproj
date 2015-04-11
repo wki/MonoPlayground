@@ -37,4 +37,10 @@
     <Compile Include="FunctionCall.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="JavaScript\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="JavaScript\adobe.js" />
+  </ItemGroup>
 </Project>
