@@ -55,11 +55,8 @@ namespace AdobeApp
                 CopyJavaScriptsTo(dir);
                 var functionCalls = GenerateFunctionCalls(invocation);
                 var appleScript = GenerateAppleScript(invocation.JavaScriptFile, functionCalls);
-
-                // - AppleScript starten
-                // - Rückgabewerte deserialisieren
-
-                return new { Foo = 123 };
+                var serializedResult = RunAppleScript(appleScript);
+                return DeserializeResult(serializedResult);
             }
         }
 
@@ -163,6 +160,20 @@ namespace AdobeApp
                 
                 yield return content.Substring(i, length);
             }
+        }
+
+        public string RunAppleScript(string appleScript)
+        {
+            // pipe appleScript into `/usr/bin/osascript -`
+            return "";
+        }
+
+        public object DeserializeResult(string serializedResult)
+        {
+
+            var jsonSerializer = new JsonSerializer();
+            var reader = new StringReader(serializedResult);
+            return jsonSerializer.Deserialize(reader);
         }
 
         // actually: list assemblies in call stack but this is exactly
