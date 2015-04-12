@@ -43,6 +43,7 @@
     <Compile Include="FunctionCall.cs" />
     <Compile Include="JavaScriptDir.cs" />
     <Compile Include="AppleScriptException.cs" />
+    <Compile Include="AppleScriptBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
