@@ -7,13 +7,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("AdobeApp.Tests")]
 
 namespace AdobeApp
 {
     /// <summary>
-    /// Application represents an Adobe Application getting controlled by JavaScript
+    /// Represents an Adobe Program to be controlled by JavaScript
     /// </summary>
     /// <example>
+    /// <code>
     /// var indesign = new Application("Adobe InDesign CC");
     /// 
     /// var render = indesign.Invocation("render.js")
@@ -24,6 +28,7 @@ namespace AdobeApp
     ///     .Close();
     /// 
     /// var result = indesign.Invoke(render);
+    /// </code>
     /// </example>
     public class Application
     {
@@ -31,24 +36,40 @@ namespace AdobeApp
         private readonly string JAVASCRIPT_FOLDER_NAME = ".javascript.";
 
         /// <summary>
-        /// Gets or sets the name.
+        /// Contains the name of the application
         /// </summary>
-        /// <value>The full name of the application</value>
+        /// <value>The full name of the application like "Adobe InDesign CC"</value>
         public string Name { get; set; }
 
+        /// <summary>
+        /// The Timeout in seconds
+        /// </summary>
+        /// <value>The timeout for the applescript code.</value>
         public int Timeout { get; set; }
 
+        /// <summary>
+        /// Constructs an application with a name
+        /// </summary>
+        /// <param name="name">Name.</param>
         public Application(string name)
         {
             Name = name;
             Timeout = 1800;
         }
 
+        /// <summary>
+        /// Returns an invocation to get filled with function calls.
+        /// </summary>
+        /// <param name="javaScriptFile">Java script file which contains all functions called</param>
         public dynamic Invocation(string javaScriptFile)
         {
             return new Invocation(javaScriptFile);
         }
 
+        /// <summary>
+        /// Invokes a previously created and filled invocation
+        /// </summary>
+        /// <param name="invocation">Invocation.</param>
         public object Invoke(Invocation invocation)
         {
             using (var dir = new JavaScriptDir())
@@ -61,8 +82,7 @@ namespace AdobeApp
             }
         }
 
-        // public for easier testability
-        public void CollectJavaScriptFiles(JavaScriptDir dir)
+        internal void CollectJavaScriptFiles(JavaScriptDir dir)
         {
             foreach (var assembly in ListAssemblies())
             {
@@ -76,12 +96,12 @@ namespace AdobeApp
             }
         }
 
-        public string GenerateFunctionCalls(Invocation invocation)
+        internal string GenerateFunctionCalls(Invocation invocation)
         {
             return JsonConvert.SerializeObject(invocation.FunctionCalls);
         }
 
-        public string GenerateAppleScript(string javaScriptFile, string scriptArguments)
+        internal string GenerateAppleScript(string javaScriptFile, string scriptArguments)
         {
             var appleScript = new StringBuilder();
 
@@ -116,7 +136,7 @@ namespace AdobeApp
         }
 
         // encode Json String into a unicode string variable assignment that can be put into our AppleScript
-        public string ArgumentsAsAssignment(string variable, string arguments)
+        internal string ArgumentsAsAssignment(string variable, string arguments)
         {
             var uTxt = new StringBuilder();
             uTxt.AppendLine(
@@ -134,7 +154,7 @@ namespace AdobeApp
         }
 
         // encode a single string into a data utxt applescript string
-        public string ToUtxt(string content)
+        internal string ToUtxt(string content)
         {
             string encodedContent =
                 String.Join(
@@ -146,7 +166,7 @@ namespace AdobeApp
             return String.Format("\u00c7data utxt{0}\u00c8 as Unicode text", encodedContent);
         }
 
-        public  IEnumerable<string> SplitIntoChunks(string content, int chunkSize = 40)
+        internal IEnumerable<string> SplitIntoChunks(string content, int chunkSize = 40)
         {
             for (int i = 0; i < content.Length; i += chunkSize)
             {
@@ -158,7 +178,7 @@ namespace AdobeApp
             }
         }
 
-        public string RunAppleScript(string appleScript)
+        internal string RunAppleScript(string appleScript)
         {
             var process = new Process("/usr/bin/osascript", "-");
             var task = Task.Run(() => process.Run());
@@ -174,14 +194,14 @@ namespace AdobeApp
             return result.StandardOutput;
         }
 
-        public object DeserializeResult(string serializedResult)
+        private object DeserializeResult(string serializedResult)
         {
             return JsonConvert.DeserializeObject(serializedResult);
         }
 
         // actually: list assemblies in call stack but this is exactly
         // the order in which we want to load JavaScript files
-        public IEnumerable<Assembly> ListAssemblies()
+        internal IEnumerable<Assembly> ListAssemblies()
         {
             var stack = new System.Diagnostics.StackTrace();
 
@@ -191,13 +211,13 @@ namespace AdobeApp
                 .Distinct();
         }
 
-        public IEnumerable<string> ListJavaScriptResources(Assembly assembly)
+        internal IEnumerable<string> ListJavaScriptResources(Assembly assembly)
         {
             return assembly.GetManifestResourceNames()
                 .Where(r => r.IndexOf(JAVASCRIPT_FOLDER_NAME, StringComparison.OrdinalIgnoreCase) > 0);
         }
 
-        public string LoadJavaScriptResource(Assembly assembly, string resourceName)
+        internal string LoadJavaScriptResource(Assembly assembly, string resourceName)
         {
             using (var stream = assembly.GetManifestResourceStream(resourceName))
             using (var reader = new StreamReader(stream))
