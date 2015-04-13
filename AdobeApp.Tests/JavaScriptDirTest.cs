@@ -34,8 +34,21 @@ namespace AdobeApp.Tests
         {
             // Assert
             Assert.IsTrue(Directory.Exists(js.Dir));
-            Assert.AreEqual(0, Directory.EnumerateFiles(js.Dir).Count());
-            Assert.AreEqual(0, Directory.EnumerateDirectories(js.Dir).Count());
+        }
+
+        [Test]
+        public void JavaScriptDir_Constructor_CreateCollectsFiles()
+        {
+            // Arrange
+            var files =
+                Directory.EnumerateFiles(js.Dir)
+                    .Select(p => Path.GetFileName(p));
+            
+            Console.WriteLine(String.Join(", ", files));
+
+            // Assert
+            Assert.IsTrue(files.Contains("adobe.js"), "adobe.js");
+            Assert.IsTrue(files.Contains("dummy.js"), "dummy.js");
         }
 
         [Test]
@@ -58,9 +71,20 @@ namespace AdobeApp.Tests
             js.SaveJavaScript("foo.js", "/* foo */");
 
             // Assert
-            var fileName = Path.Combine(js.Dir, "foo.js");
-            Assert.IsTrue(File.Exists(fileName));
-            Assert.AreEqual("/* foo */", File.ReadAllText(fileName));
+            var path = Path.Combine(js.Dir, "foo.js");
+            Assert.IsTrue(File.Exists(path));
+            Assert.AreEqual("/* foo */", File.ReadAllText(path));
+        }
+
+        [Test]
+        public void JavaScriptDir_JavaScript_ReturnsFullPathToFile()
+        {
+            // Act
+            var path = js.JavaScript("bar.js");
+
+            // Assert
+            var expectedPath = Path.Combine(js.Dir, "bar.js");
+            Assert.AreEqual(path, expectedPath);
         }
     }
 }

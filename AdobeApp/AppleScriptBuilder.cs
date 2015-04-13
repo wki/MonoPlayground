@@ -1,14 +1,56 @@
 ﻿using System;
 using System.Text;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AdobeApp
 {
-    public static class AppleScriptBuilder
+    /// <summary>
+    /// Takes care for building the AppleScript code needed to run JavaScript
+    /// </summary>
+    public class AppleScriptBuilder
     {
-        public static string DoJavaScript(string javaScriptFile, object functionCalls)
+        private readonly string SCRIPT_ARGUMENTS = "script_arguments";
+
+        /// <summary>
+        /// Options.
+        /// </summary>
+        /// <value>Options for controlling the AppleScript generation</value>
+        public Options Options { get; set; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdobeApp.AppleScriptBuilder"/> class.
+        /// </summary>
+        public AppleScriptBuilder(Options options)
         {
-            throw new NotImplementedException();
+            Options = options;
+        }
+
+        /// <summary>
+        /// Emit a "do javascript" statement (typically overloaded)
+        /// </summary>
+        /// <returns>the AppleScript statement for running a javaScript</returns>
+        /// <param name="javaScriptFile">Java script file.</param>
+        /// <param name="arguments">Name of the variable containing JSON serialized arguments</param>
+        public virtual string DoJavaScript(string javaScriptFile, string arguments)
+        {
+            // FIXME: create overloaded version of this class for InDesign, PhotoShop, etc.
+
+            if (Options.ApplicationName.Contains("InDesign"))
+            {
+                return String.Format(
+                    "do script (POSIX file \"{0}\") language javascript with arguments {1} undo mode fast entire script", 
+                    javaScriptFile, SCRIPT_ARGUMENTS
+                );
+            }
+            else
+            {
+                return String.Format(
+                    "do javascript \"$.evalFile('{0}')\" with arguments {1}",
+                    javaScriptFile, SCRIPT_ARGUMENTS
+                );
+            }    
         }
 
         private string GenerateFunctionCalls(object functionCalls)
@@ -16,34 +58,24 @@ namespace AdobeApp
             return JsonConvert.SerializeObject(functionCalls);
         }
 
-        private static string GenerateAppleScript(string javaScriptFile, string scriptArguments)
+        /// <summary>
+        /// Generates the complete AppleScript.
+        /// </summary>
+        /// <returns>The generated AppleScript.</returns>
+        /// <param name="javaScriptFile">Java script file.</param>
+        /// <param name="invocation">The functions and parameters to call</param>
+        public string GenerateAppleScript(string javaScriptFile, Invocation invocation)
         {
+            var scriptArguments = GenerateFunctionCalls(invocation.FunctionCalls);
             var appleScript = new StringBuilder();
 
-            appleScript.AppendLine(String.Format("tell application \"{0}\"", Name));
-            appleScript.AppendLine(String.Format("with timeout of {0} seconds", Timeout));
+            appleScript.AppendLine(String.Format("tell application \"{0}\"", Options.ApplicationName));
+            appleScript.AppendLine(String.Format("with timeout of {0} seconds", Options.Timeout));
 
-            appleScript.AppendLine(ArgumentsAsAssignment("script_arguments", scriptArguments));
+            appleScript.AppendLine(ArgumentsAsAssignment(SCRIPT_ARGUMENTS, scriptArguments));
 
-            if (Name.Contains("InDesign"))
-            {
-                appleScript.AppendLine(
-                    String.Format(
-                        "do script (POSIX file \"{0}\") language javascript with arguments script_arguments undo mode fast entire script", 
-                        javaScriptFile
-                    )
-                );
-            }
-            else
-            {
-                appleScript.AppendLine(
-                    String.Format(
-                        "do javascript \"$.evalFile('{0}')\" with arguments script_arguments",
-                        javaScriptFile
-                    )
-                );
-            }    
-
+            appleScript.AppendLine(DoJavaScript(javaScriptFile, SCRIPT_ARGUMENTS));
+                
             appleScript.AppendLine("end timeout");
             appleScript.AppendLine("end tell");
 
@@ -51,7 +83,7 @@ namespace AdobeApp
         }
 
         // encode Json String into a unicode string variable assignment that can be put into our AppleScript
-        private static string ArgumentsAsAssignment(string variable, string arguments)
+        private string ArgumentsAsAssignment(string variable, string arguments)
         {
             var uTxt = new StringBuilder();
             uTxt.AppendLine(
@@ -69,7 +101,7 @@ namespace AdobeApp
         }
 
         // encode a single string into a data utxt applescript string
-        private static string ToUtxt(string content)
+        private string ToUtxt(string content)
         {
             string encodedContent =
                 String.Join(

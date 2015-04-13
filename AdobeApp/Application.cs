@@ -27,26 +27,23 @@ namespace AdobeApp
     /// </example>
     public class Application
     {
-        /// <summary>
-        /// Contains the name of the application
-        /// </summary>
-        /// <value>The full name of the application like "Adobe InDesign CC"</value>
-        public string Name { get; set; }
+        public Options Options { get; set; }
 
-        /// <summary>
-        /// The Timeout in seconds
-        /// </summary>
-        /// <value>The timeout for the applescript code.</value>
-        public int Timeout { get; set; }
+        public AppleScriptBuilder AppleScriptBuilder { get; set; }
 
         /// <summary>
         /// Constructs an application with a name
         /// </summary>
         /// <param name="name">Name.</param>
-        public Application(string name)
+        public Application(string applicationName)
         {
-            Name = name;
-            Timeout = 1800;
+            Options = new Options
+            {
+                ApplicationName = applicationName,
+                Timeout = 1800
+            };
+
+            AppleScriptBuilder = new AppleScriptBuilder(Options);
         }
 
         /// <summary>
@@ -66,8 +63,7 @@ namespace AdobeApp
         {
             using (var js = new JavaScriptDir())
             {
-                // FIXME: AppleScriptBuilder must be different for Adobe Versions
-                var appleScript = AppleScriptBuilder.DoJavaScript(js.File(invocation.JavaScriptFile), invocation.FunctionCalls);
+                var appleScript = AppleScriptBuilder.GenerateAppleScript(js.JavaScript(invocation.JavaScriptFile), invocation);
                 var serializedResult = RunAppleScript(appleScript);
                 return DeserializeResult(serializedResult);
             }

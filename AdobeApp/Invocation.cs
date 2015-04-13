@@ -5,39 +5,67 @@ using System.Collections.Generic;
 namespace AdobeApp
 {
     /// <summary>
-    /// Invocation.
+    /// Encapsulates a complete JavaScript invocation chain
     /// </summary>
     public class Invocation : DynamicObject
     {
         /// <summary>
-        /// Gets or sets the java script file.
+        /// JavaScript File containing functions
         /// </summary>
-        /// <value>The JavaScript file to run</value>
+        /// <value>Name of the JavaScript file</value>
         public string JavaScriptFile { get; set; }
 
+        /// <summary>
+        /// All functions to call in sequence
+        /// </summary>
+        /// <value>A List of FunctionCall objects representing all functions to call</value>
         public List<FunctionCall> FunctionCalls { get; set; }
 
+        /// <summary>
+        /// Instantiates an invocation
+        /// </summary>
+        /// <param name="javaScriptFile">JavaScript file.</param>
         public Invocation(string javaScriptFile)
         {
             JavaScriptFile = javaScriptFile;
             FunctionCalls = new List<FunctionCall>();
         }
 
+        /// <summary>
+        /// Reserved for future use
+        /// </summary>
+        /// <returns>Invocation to allow chaining</returns>
+        /// <param name="invocation">Invocation.</param>
         public Invocation Try(Func<Invocation, Invocation> invocation)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Reserved for future use
+        /// </summary>
+        /// <returns>Invocation to allow chaining</returns>
+        /// <param name="invocation">Invocation.</param>
         public Invocation Catch(Func<Invocation, Invocation> invocation)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Reserved for future use
+        /// </summary>
+        /// <returns>Invocation to allow chaining</returns>
+        /// <param name="invocation">Invocation.</param>
         public Invocation Finally(Func<Invocation, Invocation> invocation)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Opens the file given
+        /// </summary>
+        /// <param name="path">Full path to file to open</param>
+        /// <returns>Invocation to allow chaining</returns>
         public dynamic Open(string path)
         {
             FunctionCalls.Add(
@@ -54,6 +82,11 @@ namespace AdobeApp
             return this;
         }
 
+        /// <summary>
+        /// Saves the open document
+        /// </summary>
+        /// <returns>Invocation to allow chaining</returns>
+        /// <param name="path">Path to save the file to</param>
         public dynamic SaveAs(string path)
         {
             FunctionCalls.Add(
@@ -70,6 +103,10 @@ namespace AdobeApp
             return this;
         }
 
+        /// <summary>
+        /// Closes the currently open document without saving
+        /// </summary>
+        /// <returns>Invocation to allow chaining</returns>
         public dynamic Close()
         {
             FunctionCalls.Add(
