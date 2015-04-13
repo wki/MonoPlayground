@@ -2,9 +2,6 @@
 using TwoPS.Processes;
 using System;
 using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-
-[assembly: InternalsVisibleTo("AdobeApp.Tests")]
 
 namespace AdobeApp
 {
@@ -51,9 +48,9 @@ namespace AdobeApp
         /// </summary>
         /// <returns>a dynamic object usable for chained JavaScript calls</returns>
         /// <param name="javaScriptFile">Java script file which contains all functions called</param>
-        public dynamic Invocation(string javaScriptFile)
+        public dynamic Invocation(string javaScriptFileName)
         {
-            return new Invocation(javaScriptFile);
+            return new Invocation(javaScriptFileName);
         }
 
         /// <summary>
@@ -65,7 +62,10 @@ namespace AdobeApp
         {
             using (var js = new JavaScriptDir())
             {
-                var appleScript = AppleScriptBuilder.GenerateAppleScript(js.JavaScript(invocation.JavaScriptFile), invocation);
+                var appleScript = AppleScriptBuilder.GenerateAppleScript(
+                    js.JavaScript(invocation.JavaScriptFileName),
+                    invocation.FunctionCalls
+                );
                 var serializedResult = RunAppleScript(appleScript);
                 return DeserializeResult(serializedResult);
             }

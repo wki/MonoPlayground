@@ -13,7 +13,7 @@ namespace AdobeApp
         /// JavaScript File containing functions
         /// </summary>
         /// <value>Name of the JavaScript file</value>
-        public string JavaScriptFile { get; set; }
+        public string JavaScriptFileName { get; set; }
 
         /// <summary>
         /// All functions to call in sequence
@@ -25,9 +25,9 @@ namespace AdobeApp
         /// Instantiates an invocation
         /// </summary>
         /// <param name="javaScriptFile">JavaScript file.</param>
-        public Invocation(string javaScriptFile)
+        public Invocation(string javaScriptFileName)
         {
-            JavaScriptFile = javaScriptFile;
+            JavaScriptFileName = javaScriptFileName;
             FunctionCalls = new List<FunctionCall>();
         }
 

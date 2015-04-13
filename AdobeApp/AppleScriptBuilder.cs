@@ -62,18 +62,17 @@ namespace AdobeApp
         /// Generates the complete AppleScript.
         /// </summary>
         /// <returns>The generated AppleScript.</returns>
-        /// <param name="javaScriptFile">Java script file.</param>
-        /// <param name="invocation">The functions and parameters to call</param>
-        public string GenerateAppleScript(string javaScriptFile, Invocation invocation)
+        /// <param name="javaScriptFile">Full path to the JavaScript file to execute</param>
+        /// <param name="functionCalls">functions and arguments to execute</param>
+        public string GenerateAppleScript(string javaScriptFile, object functionCalls)
         {
-            var scriptArguments = GenerateFunctionCalls(invocation.FunctionCalls);
+            var scriptArguments = GenerateFunctionCalls(functionCalls);
             var appleScript = new StringBuilder();
 
             appleScript.AppendLine(String.Format("tell application \"{0}\"", Options.ApplicationName));
             appleScript.AppendLine(String.Format("with timeout of {0} seconds", Options.Timeout));
 
             appleScript.AppendLine(ArgumentsAsAssignment(SCRIPT_ARGUMENTS, scriptArguments));
-
             appleScript.AppendLine(DoJavaScript(javaScriptFile, SCRIPT_ARGUMENTS));
                 
             appleScript.AppendLine("end timeout");

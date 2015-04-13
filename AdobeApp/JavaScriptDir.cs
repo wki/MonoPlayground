@@ -1,8 +1,8 @@
-﻿using System;using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace AdobeApp
 {

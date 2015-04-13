@@ -18,7 +18,7 @@ namespace AdobeApp.Tests
         public void Invocation_Constructor_SetsJavaScriptFile()
         {
             // Assert
-            Assert.AreEqual("some.js", invocation.JavaScriptFile);
+            Assert.AreEqual("some.js", invocation.JavaScriptFileName);
         }
 
         [Test]
