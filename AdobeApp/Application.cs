@@ -69,8 +69,12 @@ namespace AdobeApp
             }
         }
 
-
-        internal string RunAppleScript(string appleScript)
+        /// <summary>
+        /// Runs the AppleScript
+        /// </summary>
+        /// <returns>Result of the AppleScript as Text</returns>
+        /// <param name="appleScript">AppleScript source code</param>
+        public string RunAppleScript(string appleScript)
         {
             var process = new Process("/usr/bin/osascript", "-");
             var task = Task.Run(() => process.Run());
