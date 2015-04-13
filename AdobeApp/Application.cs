@@ -49,6 +49,7 @@ namespace AdobeApp
         /// <summary>
         /// Returns an invocation to get filled with function calls.
         /// </summary>
+        /// <returns>a dynamic object usable for chained JavaScript calls</returns>
         /// <param name="javaScriptFile">Java script file which contains all functions called</param>
         public dynamic Invocation(string javaScriptFile)
         {
@@ -58,6 +59,7 @@ namespace AdobeApp
         /// <summary>
         /// Invokes a previously created and filled invocation
         /// </summary>
+        /// <returns>data structure returned by function call</returns>
         /// <param name="invocation">Invocation.</param>
         public object Invoke(Invocation invocation)
         {
