@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Readme.md = Readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Sender", "RabbitMQ.Sender\RabbitMQ.Sender.csproj", "{83016280-27D0-4175-9577-0D9882D6702D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMQ.Receiver", "RabbitMQ.Receiver\RabbitMQ.Receiver.csproj", "{9C5696D7-3C60-408A-A95C-EDFA12A2A370}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -39,12 +43,24 @@ Global
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.Debug|x86.Build.0 = Debug|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.Release|x86.ActiveCfg = Release|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.Release|x86.Build.0 = Release|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.AppStore|Any CPU.Build.0 = Debug|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.Debug|x86.ActiveCfg = Debug|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.Debug|x86.Build.0 = Debug|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.Release|x86.ActiveCfg = Release|x86
+		{83016280-27D0-4175-9577-0D9882D6702D}.Release|x86.Build.0 = Release|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.AppStore|Any CPU.ActiveCfg = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.AppStore|Any CPU.Build.0 = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Debug|x86.ActiveCfg = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Debug|x86.Build.0 = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Release|x86.ActiveCfg = Release|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Release|x86.Build.0 = Release|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.AppStore|Any CPU.Build.0 = Debug|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.Debug|x86.ActiveCfg = Debug|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.Debug|x86.Build.0 = Debug|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.Release|x86.ActiveCfg = Release|x86
+		{9C5696D7-3C60-408A-A95C-EDFA12A2A370}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
