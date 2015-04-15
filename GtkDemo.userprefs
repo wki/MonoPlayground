@@ -1,11 +1,9 @@
 ﻿<Properties StartupItem="GtkDemo/GtkDemo.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AdobeApp/Application.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="OwinDemo/Startup.cs">
     <Files>
-      <File FileName="AdobeApp/Application.cs" Line="5" Column="1" />
-      <File FileName="AdobeApp/AppleScriptBuilder.cs" Line="63" Column="23" />
-      <File FileName="AdobeApp/JavaScriptDir.cs" Line="2" Column="1" />
-      <File FileName="AdobeApp/Invocation.cs" Line="22" Column="57" />
+      <File FileName="OwinDemo/Program.cs" Line="9" Column="63" />
+      <File FileName="OwinDemo/Startup.cs" Line="10" Column="10" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
