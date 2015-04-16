@@ -17,7 +17,7 @@ namespace SshDemo
             {
                 client.Connect();
 
-                SyncCommandExecution(client);
+                // SyncCommandExecution(client);
                 AsyncCommandExecution(client);
             }
         }
@@ -52,11 +52,11 @@ namespace SshDemo
         {
             using (var command = client.CreateCommand("echo 'hallo'; sleep 2; echo 'err'>&2; sleep 10; echo 'pause beendet'"))
             {
-                var async = command.BeginExecute();
+                var ssh = command.BeginExecute();
                 var stdoutReader = new StreamReader(command.OutputStream);
                 var stderrReader = new StreamReader(command.ExtendedOutputStream);
 
-                while (!async.IsCompleted)
+                while (!ssh.IsCompleted)
                 {
                     var result = stdoutReader.ReadToEnd();
                     if (!String.IsNullOrEmpty(result))
@@ -71,7 +71,7 @@ namespace SshDemo
                     }
                 }
 
-                command.EndExecute(async);
+                command.EndExecute(ssh);
 
                 Console.WriteLine("async execution done, status = {0}", command.ExitStatus);
             }
