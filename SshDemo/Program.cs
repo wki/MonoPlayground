@@ -91,8 +91,11 @@ namespace SshDemo
 
         private static PrivateKeyFile[] BuildPrivateKeyFiles()
         {
-            var sshDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".ssh");
-            var keyFile = Path.Combine(sshDir, "id_rsa");
+            var keyFile = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Personal), 
+                ".ssh",
+                "id_rsa"
+            );
 
             return new []
             {
