@@ -13,7 +13,7 @@ namespace SshDemo
             MeasureTime("Only Ssh Connect", () => DummySshConnect());
             SshConnectDemo();
             MeasureTime("Only Sftp Connect", () => DummySftpConnect());
-            MeasureTime("Sync Directories", () => SyncDirectories());
+            // MeasureTime("Sync Directories", () => SyncDirectories());
         }
 
         public static void MeasureTime(string name, Action callback)
@@ -91,9 +91,12 @@ namespace SshDemo
 
         private static PrivateKeyFile[] BuildPrivateKeyFiles()
         {
+            var sshDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".ssh");
+            var keyFile = Path.Combine(sshDir, "id_rsa");
+
             return new PrivateKeyFile[]
             {
-                new PrivateKeyFile("/Users/wolfgang/.ssh/id_rsa")
+                new PrivateKeyFile(keyFile)
             };
         }
 
