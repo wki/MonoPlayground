@@ -1,9 +1,14 @@
 ﻿<Properties StartupItem="GtkDemo/GtkDemo.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="SshDemo/Program.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="SshDemo/Program.cs" Line="16" Column="25" />
+      <File FileName="SshDemo/Program.cs" Line="59" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.NUnit.TestPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

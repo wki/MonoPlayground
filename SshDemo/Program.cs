@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using Renci.SshNet;
 using System.IO;
+using System.Linq;
 
 namespace SshDemo
 {
@@ -8,30 +10,93 @@ namespace SshDemo
     {
         public static void Main(string[] args)
         {
+            MeasureTime("Only Ssh Connect", () => DummySshConnect());
             SshConnectDemo();
+            MeasureTime("Only Sftp Connect", () => DummySftpConnect());
+            MeasureTime("Sync Directories", () => SyncDirectories());
+        }
+
+        public static void MeasureTime(string name, Action callback)
+        {
+            var stopWatch = new Stopwatch();
+
+            stopWatch.Start();
+            callback();
+            stopWatch.Stop();
+
+            Console.WriteLine("Time for executing {0}: {1:N3}s", name, stopWatch.Elapsed.TotalSeconds);
+            Console.WriteLine("-------");
+            Console.WriteLine();
+        }
+
+        public static void DummySshConnect()
+        {
+            using (var client = BuildSshClient())
+            {
+            }
+        }
+
+        public static void DummySftpConnect()
+        {
+            using (var client = BuildSftpClient())
+            {
+            }
+        }
+
+        public static void SyncDirectories()
+        {
+            using (var client = BuildSftpClient())
+            {
+                var files = client.SynchronizeDirectories("/Users/wolfgang/tmp/MyApp", "/Users/wolfgang/scripts", "*");
+                Console.WriteLine(String.Join(", ", files.Select(f => f.Name)));
+            }
         }
 
         public static void SshConnectDemo()
         {
             using (var client = BuildSshClient())
             {
-                client.Connect();
-
-                // SyncCommandExecution(client);
-                AsyncCommandExecution(client);
+                MeasureTime("Ssh Syncronous first time", () => SyncCommandExecution(client));
+                MeasureTime("Ssh Syncronous second time", () => SyncCommandExecution(client));
+                MeasureTime("Ssh Syncronous third time", () => SyncCommandExecution(client));
+                MeasureTime("Ssh Asyncronous", () => AsyncCommandExecution(client));
             }
         }
 
         private static SshClient BuildSshClient()
         {
-            return new SshClient(
+            var client = new SshClient(
                 host: "localhost",
                 username: "wolfgang",
-                keyFiles: new PrivateKeyFile[]
-                {
-                    new PrivateKeyFile("/Users/wolfgang/.ssh/id_rsa")
-                });
+                keyFiles: BuildPrivateKeyFiles()
+            );
+
+            client.Connect();
+
+            return client;
         }
+
+        private static SftpClient BuildSftpClient()
+        {
+            var client = new SftpClient(
+                host: "localhost",
+                username: "wolfgang",
+                keyFiles: BuildPrivateKeyFiles()
+            );
+
+            client.Connect();
+
+            return client;
+        }
+
+        private static PrivateKeyFile[] BuildPrivateKeyFiles()
+        {
+            return new PrivateKeyFile[]
+            {
+                new PrivateKeyFile("/Users/wolfgang/.ssh/id_rsa")
+            };
+        }
+
 
         private static void SyncCommandExecution(SshClient client)
         {
@@ -50,7 +115,7 @@ namespace SshDemo
 
         private static void AsyncCommandExecution(SshClient client)
         {
-            using (var command = client.CreateCommand("echo 'hallo'; sleep 2; echo 'err'>&2; sleep 10; echo 'pause beendet'"))
+            using (var command = client.CreateCommand("echo 'hallo'; sleep 1; echo 'err'>&2; sleep 2; echo 'pause beendet'"))
             {
                 var ssh = command.BeginExecute();
                 var stdoutReader = new StreamReader(command.OutputStream);
