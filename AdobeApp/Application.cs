@@ -78,6 +78,7 @@ namespace AdobeApp
         /// <param name="appleScript">AppleScript source code</param>
         public string RunAppleScript(string appleScript)
         {
+            // TODO: must encode appleScript into macroman encoding
             var process = new Process("/usr/bin/osascript", "-");
             var task = Task.Run(() => process.Run());
             process.StandardInput.Write(appleScript);

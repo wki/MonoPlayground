@@ -108,8 +108,9 @@ namespace AdobeApp
                     content.ToCharArray().Select(c => ((int)c).ToString("X4"))
                 );
 
-            // FIXME: is unicode encoding here correct?
-            return String.Format("\u00c7data utxt{0}\u00c8 as Unicode text", encodedContent);
+            // \u00AB and \u00BB are: '«' and '»'
+            // Encoding to Macroman is neede before executing
+            return String.Format("«data utxt{0}» as Unicode text", encodedContent);
         }
 
         private IEnumerable<string> SplitIntoChunks(string content, int chunkSize = 40)
