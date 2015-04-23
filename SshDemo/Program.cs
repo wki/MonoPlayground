@@ -10,9 +10,9 @@ namespace SshDemo
     {
         public static void Main(string[] args)
         {
-            MeasureTime("Only Ssh Connect", () => DummySshConnect());
+            MeasureTime("Only Ssh Connect", DummySshConnect);
             SshConnectDemo();
-            MeasureTime("Only Sftp Connect", () => DummySftpConnect());
+            MeasureTime("Only Sftp Connect", DummySftpConnect);
             // MeasureTime("Sync Directories", () => SyncDirectories());
         }
 

@@ -1,4 +1,7 @@
 ﻿using System;
+using TwoPS.Processes;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AdobeApp
 {
@@ -10,6 +13,7 @@ namespace AdobeApp
     /// </summary>
     public class AppleScriptRunner
     {
+        private const string OSASCRIPT = "/usr/bin/osascript";
         private readonly ScriptDir ScriptDir;
 
         public AppleScriptRunner()
@@ -33,12 +37,22 @@ namespace AdobeApp
         /// <param name="script">Script.</param>
         public string RunScript(string script)
         {
-            // TODO: implement me
-            //
-            // encode the Script into macroman,
-            // transport to osascript
-            // collect and return result
-            throw new NotImplementedException();
+            var options = new ProcessOptions(OSASCRIPT, "-");
+            options.StandardInputEncoding = Encoding.GetEncoding("macintosh");
+            // stdout is UTF8, because we pass-thru JavaScript's output
+
+            var process = new Process(options);
+            var task = Task.Run(() => process.Run());
+            process.StandardInput.Write(script);
+            process.StandardInput.Close();
+            var result = task.Result;
+
+            if (result.ExitCode != 0)
+            {
+                throw new AppleScriptException(result.StandardError);
+            }
+
+            return result.StandardOutput;
         }
 
         /// <summary>
