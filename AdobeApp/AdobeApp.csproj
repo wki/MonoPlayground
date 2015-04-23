@@ -41,10 +41,14 @@
     <Compile Include="Application.cs" />
     <Compile Include="Invocation.cs" />
     <Compile Include="FunctionCall.cs" />
-    <Compile Include="JavaScriptDir.cs" />
     <Compile Include="AppleScriptException.cs" />
-    <Compile Include="AppleScriptBuilder.cs" />
     <Compile Include="Options.cs" />
+    <Compile Include="LegacyAppleScriptBuilder.cs" />
+    <Compile Include="AppleScriptBuilder.cs" />
+    <Compile Include="JavaScriptCollection.cs" />
+    <Compile Include="AppleScriptStringEncoder.cs" />
+    <Compile Include="AppleScriptRunner.cs" />
+    <Compile Include="ScriptDir.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

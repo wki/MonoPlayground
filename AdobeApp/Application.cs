@@ -60,7 +60,7 @@ namespace AdobeApp
         /// <param name="invocation">Invocation.</param>
         public object Invoke(Invocation invocation)
         {
-            using (var js = new JavaScriptDir())
+            using (var js = new ScriptDir())
             {
                 var appleScript = AppleScriptBuilder.GenerateAppleScript(
                     js.JavaScript(invocation.JavaScriptFileName),

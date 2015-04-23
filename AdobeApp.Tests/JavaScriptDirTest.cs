@@ -8,12 +8,12 @@ namespace AdobeApp.Tests
     [TestFixture]
     public class JavaScriptDirTest
     {
-        public JavaScriptDir js { get; set; }
+        public ScriptDir js { get; set; }
 
         [SetUp]
         public void SetUp()
         {
-            js = new JavaScriptDir();
+            js = new ScriptDir();
         }
 
         [TearDown]

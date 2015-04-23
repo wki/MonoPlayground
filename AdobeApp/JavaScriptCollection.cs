@@ -7,60 +7,47 @@ using System.IO;
 namespace AdobeApp
 {
     /// <summary>
-    /// A temporary directory holding all JavaScript files
+    /// collect JavaScript files by introspecting loaded assemblies
     /// </summary>
-    public class JavaScriptDir: IDisposable
+    public class JavaScriptCollection
     {
         // Hint: Resource names are dot-separated.
         private readonly string JAVASCRIPT_FOLDER_NAME = ".javascript.";
 
-        /// <summary>
-        /// Directory
-        /// </summary>
-        /// <value>Full path to the temporary directory</value>
-        public string Dir { get; set; }
+        private Dictionary<string, string> javaScriptFiles;
 
-        /// <summary>
-        /// Initializes a new JavaScriptDir instance, creates a temporary directory and collects JavaScript files
-        /// </summary>
-        public JavaScriptDir()
+        public JavaScriptCollection()
         {
-            Dir = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-            Directory.CreateDirectory(Dir);
-
-            CollectJavaScriptFiles();
-
-        }
-
-        /// <summary>
-        /// Initializes a new JavaScriptDir instance using an existing directory and collects JavaScript files
-        /// </summary>
-        /// <param name="dir">Full path to an existing directory</param>
-        public JavaScriptDir(string dir)
-        {
-            Dir = dir;
+            javaScriptFiles = new Dictionary<string, string>();
 
             CollectJavaScriptFiles();
         }
 
         /// <summary>
-        /// Writes the given content into a file inside the directory
+        /// list all file names currently in the collection
         /// </summary>
-        /// <param name="fileName">File name to save into</param>
-        /// <param name="content">Content of the JavaScript file</param>
-        public void SaveJavaScript(string fileName, string content)
+        public IEnumerable<string> Files()
         {
-            File.WriteAllText(JavaScript(fileName), content);
+            return javaScriptFiles.Keys.AsEnumerable();
         }
 
         /// <summary>
-        /// Generates a path to a file inside dir.
+        /// allow accessing the files using [] notation
         /// </summary>
-        /// <returns>Full path to the file inside the directory</returns>
         /// <param name="fileName">File name.</param>
-        public string JavaScript(string fileName)
+        public string this[string fileName]
         {
-            return Path.Combine(Dir, fileName);
+            get { return Load(fileName); }
+            set { javaScriptFiles[fileName] = value; }
+        }
+
+        /// <summary>
+        /// return the content of a given file
+        /// </summary>
+        /// <param name="fileName">File name.</param>
+        public string Load(string fileName)
+        {
+            return javaScriptFiles[fileName];
         }
 
         private void CollectJavaScriptFiles()
@@ -73,9 +60,9 @@ namespace AdobeApp
                     var fileName = resource.Substring(folderPosition + JAVASCRIPT_FOLDER_NAME.Length);
 
                     using (var resourceStream = assembly.GetManifestResourceStream(resource))
-                    using (var javaScriptStream = new FileStream(JavaScript(fileName), FileMode.Create))
+                    using (var resourceReader = new StreamReader(resourceStream))
                     {
-                        resourceStream.CopyTo(javaScriptStream);
+                        javaScriptFiles.Add(fileName, resourceReader.ReadToEnd());
                     }
                 }
             }
@@ -97,11 +84,6 @@ namespace AdobeApp
         {
             return assembly.GetManifestResourceNames()
                 .Where(r => r.IndexOf(JAVASCRIPT_FOLDER_NAME, StringComparison.OrdinalIgnoreCase) > 0);
-        }
-
-        public void Dispose()
-        {
-            Directory.Delete(Dir, true);
         }
     }
 }
