@@ -36,12 +36,9 @@ namespace AkkaDemo
 //            return base.AroundReceive(receive, message);
 //        }
 
-        public Task<int> ReturnValue(AskValue ask)
+        public void ReturnValue(AskValue ask)
         {
-            Console.WriteLine("Value asked.");
-            var task = Task<int>.Factory.StartNew(() => Value );
-            task.Start();
-            return task;
+            Sender.Tell(Value);
         }
 
         private void AddToValue(AddMessage add)

@@ -36,5 +36,16 @@ namespace AkkaDemo.Tests
             // Assert
             Assert.AreEqual(5, calculatingActor.UnderlyingActor.Value);
         }
+
+        [Test]
+        public void ReturnValue_SendsInt()
+        {
+            // Act
+            calculatingActor.Tell(new CalculatingActor.AskValue());
+
+            // Assert
+            var answer = ExpectMsg<int>();
+            Assert.AreEqual(0, answer);
+        }
     }
 }
