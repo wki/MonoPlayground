@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{16AD8EFC-2619-490B-BD39-870322119DD3}</ProjectGuid>
+    <ProjectGuid>{775D9B9B-F1C9-4D4A-AE8E-28E22A2C824A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>AdobeApp.Tests</RootNamespace>
-    <AssemblyName>AdobeApp.Tests</AssemblyName>
+    <RootNamespace>AkkaDemo.Tests</RootNamespace>
+    <AssemblyName>AkkaDemo.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,28 +29,33 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.1.0.1\lib\net45\Akka.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Akka.TestKit">
+      <HintPath>..\packages\Akka.TestKit.1.0.1\lib\net45\Akka.TestKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka.TestKit.NUnit">
+      <HintPath>..\packages\Akka.TestKit.NUnit.1.0.1\lib\net45\Akka.TestKit.NUnit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationTest.cs" />
-    <Compile Include="InvocationTest.cs" />
-    <Compile Include="JavaScriptDirTest.cs" />
-    <Compile Include="AppleScriptBuilderTest.cs" />
+    <Compile Include="CalculatingActorTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="JavaScript\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="JavaScript\dummy.js" />
+    <ProjectReference Include="..\AkkaDemo\AkkaDemo.csproj">
+      <Project>{AA1B8CEC-8F49-4BAA-9E21-CB3C4362FC92}</Project>
+      <Name>AkkaDemo</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

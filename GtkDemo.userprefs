@@ -1,12 +1,27 @@
 ﻿<Properties StartupItem="GtkDemo/GtkDemo.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="AkkaDemo/CalculatingActor.cs">
     <Files>
-      <File FileName="SshDemo/Program.cs" Line="59" Column="1" />
+      <File FileName="AkkaDemo/Program.cs" Line="3" Column="1" />
+      <File FileName="AkkaDemo.Tests/CalculatingActorTest.cs" Line="25" Column="98" />
+      <File FileName="AkkaDemo/CalculatingActor.cs" Line="13" Column="13" />
+      <File FileName="AkkaDemo/AddMessage.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
+        <State name="__root__">
+          <Node name="GtkDemo" expanded="True">
+            <Node name="AkkaDemo.Tests" expanded="True">
+              <Node name="AkkaDemo" expanded="True">
+                <Node name="Tests" expanded="True">
+                  <Node name="Test" expanded="True">
+                    <Node name="Initial_Value_IsZero" selected="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
@@ -14,4 +29,8 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <DisabledProjects>
+    <String>AdobeApp/AdobeApp.csproj</String>
+    <String>AdobeApp.Tests/AdobeApp.Tests.csproj</String>
+  </DisabledProjects>
 </Properties>
