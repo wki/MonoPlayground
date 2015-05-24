@@ -30,11 +30,11 @@ namespace AkkaDemo
             Receive<AddMessage>(AddToValue);
         }
 
-        protected override bool AroundReceive(Receive receive, object message)
-        {
-            Console.WriteLine("Around Receive: {0}", message);
-            return base.AroundReceive(receive, message);
-        }
+//        protected override bool AroundReceive(Receive receive, object message)
+//        {
+//            Console.WriteLine("Around Receive: {0}", message);
+//            return base.AroundReceive(receive, message);
+//        }
 
         public Task<int> ReturnValue(AskValue ask)
         {

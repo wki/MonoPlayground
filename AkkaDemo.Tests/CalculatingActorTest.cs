@@ -1,5 +1,6 @@
 ﻿using AkkaDemo;
 using Akka.Actor;
+using Akka.TestKit;
 using Akka.TestKit.NUnit;
 using NUnit.Framework;
 using System;
@@ -9,43 +10,31 @@ namespace AkkaDemo.Tests
     [TestFixture]
     public class Test : TestKit
     {
-        IActorRef calculatingActor;
+        TestActorRef<CalculatingActor> calculatingActor;
 
         [SetUp]
         public void SetUp()
         {
-            CreateTestActor("test");
-            this.calculatingActor = ActorOf<CalculatingActor>();
+            this.calculatingActor = ActorOfAsTestActorRef<CalculatingActor>(
+                Props.Create(() => new CalculatingActor())
+            );
         }
-
-        [TearDown]
-        public async void TearDown()
-        {
-            Shutdown();
-        }
-
-//        [Test]
-//        public void Ask_Always_ReturnsTask()
-//        {
-//            // Act
-//            var result = calculatingActor.Ask<int>(new CalculatingActor.AskValue(), TimeSpan.FromSeconds(1));
-//            Console.WriteLine("Got Result: {0}", result);
-//
-//            // Assert
-//            Assert.IsNotNull(result);
-//        }
 
         [Test]
-        public async void Initial_Value_IsZero()
+        public void Value_Initially_Is0()
+        {
+            // Assert
+            Assert.AreEqual(0, calculatingActor.UnderlyingActor.Value);
+        }
+
+        [Test]
+        public void Value_AfterAdding5_Is5()
         {
             // Act
-            var result = calculatingActor.Ask<int>(new CalculatingActor.AskValue(), TimeSpan.FromSeconds(1));
-            Console.WriteLine("Task Status: {0}", result.Status);
-            result.Wait();
-            Console.WriteLine("Task Status: {0}", result.Status);
+            calculatingActor.Tell(new CalculatingActor.AddMessage(5));
 
             // Assert
-            Assert.AreEqual(0, await result);
+            Assert.AreEqual(5, calculatingActor.UnderlyingActor.Value);
         }
     }
 }

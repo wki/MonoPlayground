@@ -5,10 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GtkDemo", "GtkDemo\GtkDemo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CmdLineApp", "CmdLineApp\CmdLineApp.csproj", "{91EE3D62-0305-4A55-B999-115AC90065E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdobeApp", "AdobeApp\AdobeApp.csproj", "{36C9D114-496C-4C7E-A342-209437E91368}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdobeApp.Tests", "AdobeApp.Tests\AdobeApp.Tests.csproj", "{16AD8EFC-2619-490B-BD39-870322119DD3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28EB0E06-9EF5-411B-A6FB-10E951562650}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.md = Readme.md
@@ -39,18 +35,6 @@ Global
 		AppStore|Any CPU = AppStore|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.AppStore|Any CPU.Build.0 = Debug|Any CPU
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.Debug|x86.Build.0 = Debug|Any CPU
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.Release|x86.ActiveCfg = Release|Any CPU
-		{16AD8EFC-2619-490B-BD39-870322119DD3}.Release|x86.Build.0 = Release|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.AppStore|Any CPU.Build.0 = Debug|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.Debug|x86.Build.0 = Debug|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.Release|x86.ActiveCfg = Release|Any CPU
-		{36C9D114-496C-4C7E-A342-209437E91368}.Release|x86.Build.0 = Release|Any CPU
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.AppStore|Any CPU.ActiveCfg = Debug|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.AppStore|Any CPU.Build.0 = Debug|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.Debug|x86.ActiveCfg = Debug|x86
