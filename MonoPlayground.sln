@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo", "AkkaDemo\AkkaDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.Tests", "AkkaDemo.Tests\AkkaDemo.Tests.csproj", "{775D9B9B-F1C9-4D4A-AE8E-28E22A2C824A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAkkaDemo", "SshAkkaDemo\SshAkkaDemo.csproj", "{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -71,6 +73,12 @@ Global
 		{8723E9C3-A800-4CAC-9D77-CA86FC0FF13C}.Debug|x86.Build.0 = Debug|x86
 		{8723E9C3-A800-4CAC-9D77-CA86FC0FF13C}.Release|x86.ActiveCfg = Release|x86
 		{8723E9C3-A800-4CAC-9D77-CA86FC0FF13C}.Release|x86.Build.0 = Release|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.AppStore|Any CPU.Build.0 = Debug|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.Debug|x86.ActiveCfg = Debug|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.Debug|x86.Build.0 = Debug|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.Release|x86.ActiveCfg = Release|x86
+		{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}.Release|x86.Build.0 = Release|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.AppStore|Any CPU.ActiveCfg = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.AppStore|Any CPU.Build.0 = Debug|x86
 		{91EE3D62-0305-4A55-B999-115AC90065E8}.Debug|x86.ActiveCfg = Debug|x86
