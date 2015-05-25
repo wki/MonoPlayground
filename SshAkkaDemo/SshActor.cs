@@ -2,10 +2,11 @@
 using System;
 using Renci.SshNet;
 using System.IO;
+using System.Collections.Generic;
 
 namespace SshAkkaDemo
 {
-    public class SshActor : ReceiveActor
+    public class SshActor : ReceiveActor, IWithUnboundedStash
     {
         #region Messages
         public class RunCommand
@@ -49,31 +50,47 @@ namespace SshAkkaDemo
         }
         #endregion
 
+        public IStash Stash { get; set; }
         private SshClient sshClient;
 
-        // TODO: behaviors disconnected, connected
         public SshActor()
         {
             // warning: takes time, is not responsive!
             sshClient = BuildSshClient();
+            sshClient.ErrorOccurred += HandleErrorOccured;
 
+            Idle();
+        }
+
+        #region behaviour definitions
+        private void Idle()
+        {
             Receive<RunCommand>(RunRemoteCommand);
+        }
+
+        private void Running()
+        {
+            Receive<RunCommand>(_ => Stash.Stash());
             Receive<ReceivedStdOut>(PrintStdOut);
             Receive<ReceivedStdErr>(PrintStdErr);
             Receive<FinishedCommand>(HandleFinished);
         }
+        #endregion
 
+        #region Idle behaviour
         private void RunRemoteCommand(RunCommand runCommand)
         {
+            Become(Running);
+
+            Console.WriteLine(">>> Run Commandline: {0}", runCommand.CommandLine);
             var sshCommand = sshClient.CreateCommand(runCommand.CommandLine);
 
             var remoteCommandProp = Props.Create<RemoteCommandActor>(sshCommand);
             Context.ActorOf(remoteCommandProp);
-
-            sshClient.ErrorOccurred += HandleErrorOccured;
-            // TODO: if RemoteCommandActor is terminated, dispose command
         }
+        #endregion
 
+        #region Running behaviour
         void HandleErrorOccured(object sender, Renci.SshNet.Common.ExceptionEventArgs e)
         {
             Console.WriteLine("Error Occured: {0}", e);
@@ -94,7 +111,11 @@ namespace SshAkkaDemo
             Console.WriteLine("Finished command, code: {0}", finishedCommand.ExitCode);
 
             Sender.Tell(PoisonPill.Instance);
+
+            Become(Idle);
+            Stash.Unstash();
         }
+        #endregion
 
         #region connection management
         private static SshClient BuildSshClient()
