@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="GtkDemo/GtkDemo.csproj" GitUserInfo="UsingGIT">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="AkkaDemo.Tests/CalculatingActorTest.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WebApiDemo/Program.cs">
     <Files>
-      <File FileName="AkkaDemo/Program.cs" Line="3" Column="1" />
-      <File FileName="AkkaDemo/CalculatingActor.cs" Line="42" Column="10" />
-      <File FileName="AkkaDemo.Tests/CalculatingActorTest.cs" Line="48" Column="37" NotebookId="1" />
+      <File FileName="WebApiDemo/Program.cs" Line="13" Column="1" />
     </Files>
     <Pads>
       <Pad Id="MonoDevelop.NUnit.TestPad">
@@ -18,8 +16,4 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <DisabledProjects>
-    <String>AdobeApp/AdobeApp.csproj</String>
-    <String>AdobeApp.Tests/AdobeApp.Tests.csproj</String>
-  </DisabledProjects>
 </Properties>

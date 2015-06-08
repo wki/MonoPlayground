@@ -30,6 +30,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.Tests", "AkkaDemo.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SshAkkaDemo", "SshAkkaDemo\SshAkkaDemo.csproj", "{8F83BE7D-8795-4AEB-9359-26FD1F4185EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.TimeServer.Actors", "AkkaDemo.TimeServer.Actors\AkkaDemo.TimeServer.Actors.csproj", "{AB188410-93E0-45AD-9007-CBC4ED008D28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.TimeServer.Server", "AkkaDemo.TimeServer.Server\AkkaDemo.TimeServer.Server.csproj", "{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.TimeServer.Client", "AkkaDemo.TimeServer.Client\AkkaDemo.TimeServer.Client.csproj", "{131D2B06-52D7-42FA-8029-B0081B013F2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -37,6 +43,18 @@ Global
 		AppStore|Any CPU = AppStore|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.AppStore|Any CPU.Build.0 = Debug|x86
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.Debug|x86.ActiveCfg = Debug|x86
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.Debug|x86.Build.0 = Debug|x86
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.Release|x86.ActiveCfg = Release|x86
+		{131D2B06-52D7-42FA-8029-B0081B013F2B}.Release|x86.Build.0 = Release|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.AppStore|Any CPU.Build.0 = Debug|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.Debug|x86.ActiveCfg = Debug|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.Debug|x86.Build.0 = Debug|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.Release|x86.ActiveCfg = Release|x86
+		{35B6AF36-4AAD-4C8B-A352-1B3E038BFA70}.Release|x86.Build.0 = Release|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.AppStore|Any CPU.ActiveCfg = Debug|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.AppStore|Any CPU.Build.0 = Debug|x86
 		{4B74B057-A91E-4385-B664-2CC34698E7EC}.Debug|x86.ActiveCfg = Debug|x86
@@ -97,6 +115,12 @@ Global
 		{AA1B8CEC-8F49-4BAA-9E21-CB3C4362FC92}.Debug|x86.Build.0 = Debug|x86
 		{AA1B8CEC-8F49-4BAA-9E21-CB3C4362FC92}.Release|x86.ActiveCfg = Release|x86
 		{AA1B8CEC-8F49-4BAA-9E21-CB3C4362FC92}.Release|x86.Build.0 = Release|x86
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.Debug|x86.Build.0 = Debug|Any CPU
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.Release|x86.ActiveCfg = Release|Any CPU
+		{AB188410-93E0-45AD-9007-CBC4ED008D28}.Release|x86.Build.0 = Release|Any CPU
 		{D58DBA07-1F3E-4AA7-9C41-1CD484819B6A}.AppStore|Any CPU.ActiveCfg = Debug|x86
 		{D58DBA07-1F3E-4AA7-9C41-1CD484819B6A}.AppStore|Any CPU.Build.0 = Debug|x86
 		{D58DBA07-1F3E-4AA7-9C41-1CD484819B6A}.Debug|x86.ActiveCfg = Debug|x86
