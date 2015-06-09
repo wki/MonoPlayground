@@ -63,5 +63,12 @@
     <None Include="CHANGES.txt" />
     <None Include="licenses\license.txt" />
     <None Include="licenses\protoc-license.txt" />
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AkkaDemo.TimeServer.Actors\AkkaDemo.TimeServer.Actors.csproj">
+      <Project>{AB188410-93E0-45AD-9007-CBC4ED008D28}</Project>
+      <Name>AkkaDemo.TimeServer.Actors</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
