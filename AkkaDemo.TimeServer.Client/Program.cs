@@ -23,8 +23,9 @@ namespace AkkaDemo.TimeServer.Client
         {
             var time = system.ActorSelection("akka.tcp://TimeServer@localhost:9000/user/time");
 
-            var client = system.ActorOf(
-                Props.Create( () => new Tim
+//            var client = system.ActorOf(
+//                Props.Create( () => new TimeServerActor() )
+//            );
 
             var result = await time.Ask<string>(new TimeServerActor.GetTime());
 
