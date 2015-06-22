@@ -38,6 +38,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.TimeServer.Client"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TopShelfDemo", "TopShelfDemo\TopShelfDemo.csproj", "{D6AF0908-3ED2-429F-A3EC-41FA22F9B419}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AkkaDemo.PersistentSensor", "AkkaDemo.PersistentSensor\AkkaDemo.PersistentSensor.csproj", "{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -141,6 +143,12 @@ Global
 		{DA33DC9C-7653-4605-B2F4-35C4D372F360}.Debug|x86.Build.0 = Debug|x86
 		{DA33DC9C-7653-4605-B2F4-35C4D372F360}.Release|x86.ActiveCfg = Release|x86
 		{DA33DC9C-7653-4605-B2F4-35C4D372F360}.Release|x86.Build.0 = Release|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.AppStore|Any CPU.ActiveCfg = Debug|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.AppStore|Any CPU.Build.0 = Debug|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.Debug|x86.ActiveCfg = Debug|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.Debug|x86.Build.0 = Debug|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.Release|x86.ActiveCfg = Release|x86
+		{F91E3DE5-6A1F-452A-9BC7-E23269C56E9B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
