@@ -4,6 +4,7 @@ using System;
 
 namespace AkkaDemo.TimeServer.Server
 {
+    // SERVER
     class MainClass
     {
         public static void Main(string[] args)
@@ -16,6 +17,7 @@ namespace AkkaDemo.TimeServer.Server
             Console.ReadLine();
             Console.WriteLine("Stopping Time Server");
 
+            system.Shutdown();
             system.AwaitTermination();
         }
     }

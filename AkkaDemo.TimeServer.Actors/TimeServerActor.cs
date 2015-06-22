@@ -18,6 +18,7 @@ namespace AkkaDemo.TimeServer.Actors
 
         private void HandleGetTime(GetTime getTime)
         {
+            Console.WriteLine("Received GetTime Request");
             Sender.Tell(DateTime.Now.ToShortTimeString());
         }
     }

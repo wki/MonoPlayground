@@ -4,6 +4,7 @@ using System;
 
 namespace AkkaDemo.TimeServer.Client
 {
+    // CLIENT
     class MainClass
     {
         private static ActorSystem system;
@@ -14,9 +15,21 @@ namespace AkkaDemo.TimeServer.Client
 
             system = Akka.Actor.ActorSystem.Create("TimeClient");
 
+            Console.WriteLine("Settings: {0}", system.Settings);
             ReadTime();
 
+            Console.ReadLine();
+            Console.WriteLine("Time Server client Shutdown");
+            system.Shutdown();
             system.AwaitTermination();
+        }
+
+        private static void XReadTime()
+        {
+            var time = system
+                .ActorSelection("akka.tcp://TimeServer@localhost:9000/user/time");
+            //send a message to the remote actor
+            time.Tell(new TimeServerActor.GetTime());
         }
 
         private static async void ReadTime()
