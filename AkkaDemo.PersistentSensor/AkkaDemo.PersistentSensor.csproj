@@ -61,5 +61,6 @@
     <None Include="CHANGES.txt" />
     <None Include="licenses\license.txt" />
     <None Include="licenses\protoc-license.txt" />
+    <None Include="app.config" />
   </ItemGroup>
 </Project>

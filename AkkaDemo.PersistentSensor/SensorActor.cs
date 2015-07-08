@@ -1,5 +1,5 @@
 ﻿using System;
-using Akka.Actor;
+// using Akka.Actor;
 using Akka.Persistence;
 
 namespace AkkaDemo.PersistentSensor
@@ -50,6 +50,8 @@ namespace AkkaDemo.PersistentSensor
 
         public SensorActor()
         {
+            State = new SensorState();
+
             Recover<SnapshotOffer>(snapshotOffer =>
                 {
                     Console.WriteLine("Recover SnapshotOffer: {0}", snapshotOffer);
@@ -86,6 +88,10 @@ namespace AkkaDemo.PersistentSensor
                     if (command == "print")
                     {
                         Console.WriteLine("Current Result: {0}", State.Result);
+                    }
+                    else if (command == "snap")
+                    {
+                        SaveSnapshot(State);
                     }
 
                     return true;
