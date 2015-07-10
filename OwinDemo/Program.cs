@@ -1,6 +1,11 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
 
+/* for deploying on Linux we need these packages with aptitude:
+ *  - mono-runtime
+ *  - ~n^libmono-system
+ */
+
 namespace OwinDemo
 {
     class MainClass
