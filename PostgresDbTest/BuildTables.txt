@@ -1,0 +1,6 @@
+﻿create table customer (
+    customer_id serial not null primary key,
+    name text,
+    phone text
+);
+
