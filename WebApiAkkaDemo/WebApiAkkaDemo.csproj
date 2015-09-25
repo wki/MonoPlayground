@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{D6AF0908-3ED2-429F-A3EC-41FA22F9B419}</ProjectGuid>
+    <ProjectGuid>{CEE66E43-B8FA-4C5F-AD60-0B06A61D45E7}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TopShelfDemo</RootNamespace>
-    <AssemblyName>TopShelfDemo</AssemblyName>
+    <RootNamespace>WebApiAkkaDemo</RootNamespace>
+    <AssemblyName>WebApiAkkaDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -31,20 +31,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Topshelf">
-      <HintPath>..\packages\Topshelf.3.2.0\lib\net40-full\Topshelf.dll</HintPath>
-    </Reference>
-    <Reference Include="Topshelf.Linux">
-      <HintPath>..\packages\Topshelf.Linux.1.0.12.11\lib\Topshelf.Linux.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MyService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>
