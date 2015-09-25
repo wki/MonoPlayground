@@ -83,6 +83,7 @@
     <Compile Include="ActorController.cs" />
     <Compile Include="AskableActor.cs" />
     <Compile Include="AskAQuestion.cs" />
+    <Compile Include="StopwatchMiddleware.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

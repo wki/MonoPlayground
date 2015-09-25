@@ -4,6 +4,7 @@ using System.Web.Http;
 using Microsoft.Practices.Unity;
 using Unity.WebApi;
 using Akka.Actor;
+using System.Diagnostics;
 
 
 namespace WebApiAkkaDemo
@@ -24,8 +25,27 @@ namespace WebApiAkkaDemo
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            // app.Use<StopwatchMiddleware>();
+
             app.UseWebApi(config);
         }
+
+        /* Idee zur Erweiterung
+         * 
+         * interface IAskableService
+         *   async string Ask(string question);
+         * 
+         * class AskableService : IAskableService
+         *   --> kennen der ActorRef auf AskableActor
+         *   --> Kapselung der Abfrage aus dem Controller
+         * 
+         * Instantiierung AskableService
+         * 
+         * Registrierung AskableService als IAskableService in Unity
+         * 
+         * Benutzen von IAskableService in Controller
+         */
+
 
         private IUnityContainer SetupContainer()
         {
