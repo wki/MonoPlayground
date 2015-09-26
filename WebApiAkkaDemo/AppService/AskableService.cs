@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace WebApiAkkaDemo
+namespace WebApiAkkaDemo.AppService
 {
     public class AskableService : IAskableService
     {
@@ -20,7 +20,7 @@ namespace WebApiAkkaDemo
 
         public Task<string> AskAsync(string question)
         {
-            return askableActor.Ask<string>(new AskAQuestion(question));
+            return askableActor.Ask<string>(question);
         }
 
         private T ResultOf<T>(Func<Task<T>> f)

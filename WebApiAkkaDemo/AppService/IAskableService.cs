@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace WebApiAkkaDemo
+namespace WebApiAkkaDemo.AppService
 {
     public interface IAskableService
     {

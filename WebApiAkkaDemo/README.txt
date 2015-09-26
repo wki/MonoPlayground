@@ -25,3 +25,17 @@ ActorController
 StopwatchMiddleware
 	: Zeitmessung innerhalb Actor Ablaufkette
 	  erzeugt X-Elapsed-Milliseconds Response Header
+
+
+Aktoren
+
+/user/askable
+	: einfacher Demo-Aktor, der auf einfache Fragen reagiert
+
+/user/domain
+	: ist für das Abrufen von Aggregate roots verantwortlich
+	  BuildAggregate(type, id) -> ActorRef
+
+/user/domain/sensor-42
+	: Beispiel eines aggregates; Typ: sensor, Id: 42
+

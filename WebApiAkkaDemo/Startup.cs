@@ -4,8 +4,8 @@ using System.Web.Http;
 using Microsoft.Practices.Unity;
 using Unity.WebApi;
 using Akka.Actor;
-using System.Diagnostics;
-
+using WebApiAkkaDemo.AppService;
+using WebApiAkkaDemo.Domain;
 
 namespace WebApiAkkaDemo
 {
