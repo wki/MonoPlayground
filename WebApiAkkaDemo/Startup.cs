@@ -34,13 +34,15 @@ namespace WebApiAkkaDemo
         {
             var myActorSystem = ActorSystem.Create("MyActorSystem");
             var myActor = myActorSystem.ActorOf<AskableActor>("Askable");
-            Console.WriteLine("Created actor: {0} ({1})", myActor.Path, myActor.GetType().FullName);
-
             var askableService = new AskableService(myActor);
+
+            var domainActor = myActorSystem.ActorOf<DomainActor>("Domain");
+            var domainService = new DomainService(domainActor);
 
             var container = new UnityContainer();
             container.RegisterInstance<ActorSystem>(myActorSystem);
             container.RegisterInstance<IAskableService>(askableService);
+            container.RegisterInstance<IDomainService>(domainService);
 
             return container;
         }

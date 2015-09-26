@@ -9,20 +9,31 @@ namespace WebApiAkkaDemo.Domain
     /// <description>
     /// ist zuständig für das Erzeugen von Aggregate Roots.
     /// wenn es persistierte Aktoren sind werden sie geladen
+    /// 
+    /// zusätzlich "application Facade"
     /// </description>
     public class DomainActor : ReceiveActor
     {
         #region Command Messages
+        public class ProvideMeasurement
+        {
+            public int Result { get; set; }
+            public ProvideMeasurement(int result)
+            {
+                Result = result;
+            }
+        }
+
         public class BuildAggregate
         {
+            public Type Type { get; set; }
+            public int Id { get; set; }
+
             public BuildAggregate(Type type, int id)
             {
                 Type = type;
                 Id = id;
             }
-
-            public Type Type { get; set; }
-            public int Id { get; set; }
         }
         #endregion
 
@@ -40,7 +51,16 @@ namespace WebApiAkkaDemo.Domain
 
         public DomainActor()
         {
+            Receive<ProvideMeasurement>(Provide);
             Receive<BuildAggregate>(Build);
+        }
+
+
+        private void Provide(ProvideMeasurement provideMeasurement)
+        {
+            // TODO: ist das eine Aufgabe für einen ganz eigenen Aktor?
+            // aggregate holen
+            // messwert weitergeben
         }
 
         private void Build(BuildAggregate buildAggregate)
