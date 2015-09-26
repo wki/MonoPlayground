@@ -25,36 +25,22 @@ namespace WebApiAkkaDemo
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            // app.Use<StopwatchMiddleware>();
+            app.Use<StopwatchMiddleware>();
 
             app.UseWebApi(config);
         }
-
-        /* Idee zur Erweiterung
-         * 
-         * interface IAskableService
-         *   async string Ask(string question);
-         * 
-         * class AskableService : IAskableService
-         *   --> kennen der ActorRef auf AskableActor
-         *   --> Kapselung der Abfrage aus dem Controller
-         * 
-         * Instantiierung AskableService
-         * 
-         * Registrierung AskableService als IAskableService in Unity
-         * 
-         * Benutzen von IAskableService in Controller
-         */
-
-
+            
         private IUnityContainer SetupContainer()
         {
             var myActorSystem = ActorSystem.Create("MyActorSystem");
             var myActor = myActorSystem.ActorOf<AskableActor>("Askable");
             Console.WriteLine("Created actor: {0} ({1})", myActor.Path, myActor.GetType().FullName);
 
+            var askableService = new AskableService(myActor);
+
             var container = new UnityContainer();
             container.RegisterInstance<ActorSystem>(myActorSystem);
+            container.RegisterInstance<IAskableService>(askableService);
 
             return container;
         }

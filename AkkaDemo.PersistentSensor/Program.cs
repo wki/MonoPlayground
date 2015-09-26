@@ -9,7 +9,7 @@ namespace AkkaDemo.PersistentSensor
         {
             Console.WriteLine("Starting Actor System");
 
-            var system = Akka.Actor.ActorSystem.Create("Measurement");
+            var system = ActorSystem.Create("Measurement");
             var sensor1 = system.ActorOf<SensorActor>("sensor1");
 
             sensor1.Tell(new SensorActor.ProvideMeasurement(42));

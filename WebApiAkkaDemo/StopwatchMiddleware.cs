@@ -14,9 +14,17 @@ namespace WebApiAkkaDemo
             var stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            await Next.Invoke(context);
+            context.Response.OnSendingHeaders(
+                state => 
+                {
+                    float elapsedMilliseconds =
+                        (float) stopwatch.ElapsedTicks / Stopwatch.Frequency * 1000f;
+                    
+                    context.Response.Headers["X-Runtime-Milliseconds"] = elapsedMilliseconds.ToString("N3");
+                }, context
+            );
 
-            Console.WriteLine("duration: {0}", stopwatch.ElapsedMilliseconds);
+            await Next.Invoke(context);
         }
     }
 }

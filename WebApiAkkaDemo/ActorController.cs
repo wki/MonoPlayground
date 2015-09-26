@@ -9,19 +9,25 @@ namespace WebApiAkkaDemo
     [RoutePrefix("api/actor")]
     public class ActorController : ApiController
     {
-        private ActorSystem actorSystem;
+        private IAskableService askableService;
 
-        public ActorController(ActorSystem actorSystem)
+        public ActorController(IAskableService askableService)
         {
-            this.actorSystem = actorSystem;
+            this.askableService = askableService;
         }
 
         [Route("ask")]
         [HttpGet]
-        public async Task<string> Ask()
+        public Task<string> Ask()
         {
-            var askable = actorSystem.ActorSelection("/user/Askable");
-            return await askable.Ask<string>(new AskAQuestion("huhu?"));
+            return askableService.AskAsync("huhu");
+        }
+
+        [Route("sync")]
+        [HttpGet]
+        public string Sync()
+        {
+            return askableService.Ask("hihi");
         }
 
         [Route("dummy")]

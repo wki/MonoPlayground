@@ -84,9 +84,13 @@
     <Compile Include="AskableActor.cs" />
     <Compile Include="AskAQuestion.cs" />
     <Compile Include="StopwatchMiddleware.cs" />
+    <Compile Include="IAskableService.cs" />
+    <Compile Include="AskableService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="README.txt" />
   </ItemGroup>
 </Project>
