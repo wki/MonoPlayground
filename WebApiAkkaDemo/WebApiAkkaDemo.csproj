@@ -99,6 +99,7 @@
     <Compile Include="Domain\Sensor.cs" />
     <Compile Include="AppService\IDomainService.cs" />
     <Compile Include="AppService\DomainService.cs" />
+    <Compile Include="Domain\AggregateCoordinator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
