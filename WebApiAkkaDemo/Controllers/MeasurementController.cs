@@ -26,7 +26,7 @@ namespace WebApiAkkaDemo.Controllers
             return measurementService.ReadMeasurementAsync(id);
         }
 
-        // curl -4 -vXPOST HContent-Type:application/json -d 42 http://localhost:9000/api/measurement/13 
+        // curl -4 -vXPOST -HContent-Type:application/json -d 42 http://localhost:9000/api/measurement/13 
 
         [Route("{id}")]
         [HttpPost]

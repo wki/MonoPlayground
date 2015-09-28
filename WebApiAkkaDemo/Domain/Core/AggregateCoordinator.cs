@@ -163,7 +163,14 @@ namespace WebApiAkkaDemo.Domain.Core
         {
             var child = Find(aggregateId);
             if (child == ActorRefs.Nobody)
+            {
                 child = Create(aggregateId);
+                Log.Debug("Created aggregate {0}", GetPersistenceId(aggregateId));
+            }
+            else
+            {
+                Log.Debug("Found aggregate {0}", GetPersistenceId(aggregateId));
+            }
             
             return child;
         }
