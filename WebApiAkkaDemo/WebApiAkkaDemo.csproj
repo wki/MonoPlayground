@@ -89,17 +89,21 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ActorController.cs" />
     <Compile Include="StopwatchMiddleware.cs" />
     <Compile Include="Domain\AskableActor.cs" />
     <Compile Include="AppService\AskableService.cs" />
     <Compile Include="AppService\IAskableService.cs" />
-    <Compile Include="Domain\DomainActor.cs" />
-    <Compile Include="Domain\AggregateRoot.cs" />
-    <Compile Include="Domain\Sensor.cs" />
-    <Compile Include="AppService\IDomainService.cs" />
-    <Compile Include="AppService\DomainService.cs" />
-    <Compile Include="Domain\AggregateCoordinator.cs" />
+    <Compile Include="Domain\Core\AggregateCoordinator.cs" />
+    <Compile Include="Domain\Core\AggregateRoot.cs" />
+    <Compile Include="Domain\Measurement\Sensor.cs" />
+    <Compile Include="Domain\Measurement\SensorCoordinator.cs" />
+    <Compile Include="Domain\Measurement\Commands.cs" />
+    <Compile Include="Domain\Core\Interfaces.cs" />
+    <Compile Include="Domain\Measurement\Events.cs" />
+    <Compile Include="AppService\IMeasurementService.cs" />
+    <Compile Include="AppService\MeasurementService.cs" />
+    <Compile Include="Controllers\ActorController.cs" />
+    <Compile Include="Controllers\MeasurementController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -116,5 +120,8 @@
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="AppService\" />
+    <Folder Include="Domain\Core\" />
+    <Folder Include="Domain\Measurement\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>

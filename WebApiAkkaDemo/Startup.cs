@@ -6,6 +6,7 @@ using Unity.WebApi;
 using Akka.Actor;
 using WebApiAkkaDemo.AppService;
 using WebApiAkkaDemo.Domain;
+using WebApiAkkaDemo.Domain.Measurement;
 
 namespace WebApiAkkaDemo
 {
@@ -36,13 +37,13 @@ namespace WebApiAkkaDemo
             var myActor = myActorSystem.ActorOf<AskableActor>("Askable");
             var askableService = new AskableService(myActor);
 
-            var domainActor = myActorSystem.ActorOf<DomainActor>("Domain");
-            var domainService = new DomainService(domainActor);
+            var sensorCoordinator = myActorSystem.ActorOf<SensorCoordinator>("Sensors");
+            var measurementService = new MeasurementService(sensorCoordinator);
 
             var container = new UnityContainer();
             container.RegisterInstance<ActorSystem>(myActorSystem);
             container.RegisterInstance<IAskableService>(askableService);
-            container.RegisterInstance<IDomainService>(domainService);
+            container.RegisterInstance<IMeasurementService>(measurementService);
 
             return container;
         }

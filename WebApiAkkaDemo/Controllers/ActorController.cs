@@ -1,10 +1,9 @@
-﻿using Akka.Actor;
-using System;
+﻿using System;
 using System.Web.Http;
 using System.Threading.Tasks;
 using WebApiAkkaDemo.AppService;
 
-namespace WebApiAkkaDemo
+namespace WebApiAkkaDemo.Controllers
 {
     [RoutePrefix("api/actor")]
     public class ActorController : ApiController

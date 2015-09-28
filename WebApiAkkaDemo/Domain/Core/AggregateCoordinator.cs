@@ -4,12 +4,12 @@ using Akka.Event;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WebApiAkkaDemo
+namespace WebApiAkkaDemo.Domain.Core
 {
     // borrowed from https://github.com/Horusiath/AkkaCQRS/blob/master/src/AkkaCQRS.Core/AggregateCoordinator.cs
 
     /// <summary>
-    /// Aggregate coordinator.
+    /// Base class for an aggregate coordinator.
     /// </summary>
     /// <description>
     /// the aggregate coordinator has these responsibilities:
@@ -20,13 +20,14 @@ namespace WebApiAkkaDemo
     /// 
     /// typical usage
     /// <code>
-    /// class People : AggregateCoordinator&lt;Person, int&gt;
+    /// class People : AggregateCoordinator<Person, int>
     /// {
     ///     public People() : this("Person")
     ///     {
-    ///         Receive&lt;SomeMessage&gt;(SomeMessageHandler);
+    ///         Receive<SomeMessage>(SomeMessageHandler);
     ///     }
     /// 
+    ///     // maybe override GetProps(int) or GetPersistenceId(int)
     ///     private void SomeMessageHandler(SomeMessage s)
     ///     {
     ///         ForwardCommand(s.Id, s.Command);
@@ -107,6 +108,15 @@ namespace WebApiAkkaDemo
         /// <summary>
         /// Forwards a command to a (maybe loaded) aggregate
         /// </summary>
+        /// <param name="command">Command.</param>
+        protected void ForwardCommand(IAddressed<TId> command)
+        {
+            ForwardCommand(command.Id, command);
+        }
+
+        /// <summary>
+        /// Forwards a command to a (maybe loaded) aggregate
+        /// </summary>
         /// <param name="aggregateId">Aggregate identifier.</param>
         /// <param name="command">Command.</param>
         /// <description>
@@ -168,6 +178,7 @@ namespace WebApiAkkaDemo
         {
             CleanupChildren();
 
+            // alternativ: Context.ActorOf<TAggregate>(GetPersistenceId(aggregateId));
             var aggregate = Context.ActorOf(GetProps(aggregateId), GetPersistenceId(aggregateId));
             Context.Watch(aggregate);
             return aggregate;
