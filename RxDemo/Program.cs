@@ -66,7 +66,7 @@ namespace RxDemo
 
             result.ForEachAsync(w =>
                 {
-                    Console.WriteLine("New window created", ;
+                    Console.WriteLine("New window created");
                     w.Subscribe(Console.WriteLine);
                 }
             ).Wait();
@@ -88,6 +88,7 @@ namespace RxDemo
             ).Wait();
         }
 
+        // generate lines of text
         public static IEnumerable<string> GetInput()
         {
             while (true)
