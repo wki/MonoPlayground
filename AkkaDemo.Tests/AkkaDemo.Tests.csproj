@@ -29,20 +29,20 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Akka">
-      <HintPath>..\packages\Akka.1.0.1\lib\net45\Akka.dll</HintPath>
-    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.1.0.4\lib\net45\Akka.dll</HintPath>
+    </Reference>
     <Reference Include="Akka.TestKit">
-      <HintPath>..\packages\Akka.TestKit.1.0.1\lib\net45\Akka.TestKit.dll</HintPath>
+      <HintPath>..\packages\Akka.TestKit.1.0.4\lib\net45\Akka.TestKit.dll</HintPath>
     </Reference>
     <Reference Include="Akka.TestKit.NUnit">
-      <HintPath>..\packages\Akka.TestKit.NUnit.1.0.1\lib\net45\Akka.TestKit.NUnit.dll</HintPath>
+      <HintPath>..\packages\Akka.TestKit.NUnit.1.0.4\lib\net45\Akka.TestKit.NUnit.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

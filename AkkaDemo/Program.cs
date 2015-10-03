@@ -1,5 +1,6 @@
 ﻿using System;
 using Akka;
+using Akka.Actor;
 
 namespace AkkaDemo
 {
@@ -7,7 +8,15 @@ namespace AkkaDemo
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var actorSystem = new ActorSystem();
+
+            var calculator = actorSystem.ActorOf(Props.Create<CalculatingActor>());
+
+            Console.WriteLine("Press enter to continue");
+            Console.ReadLine();
+
+            actorSystem.Shutdown();
+            actorSystem.AwaitTermination();
         }
     }
 }

@@ -42,9 +42,23 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CalculatingActor.cs" />
+    <Compile Include="Persistence\PersistenceProxy.cs" />
+    <Compile Include="Persistence\Commands\GetState.cs" />
+    <Compile Include="Persistence\Commands\SetState.cs" />
+    <Compile Include="Persistence\Commands\RestoreSnapshot.cs" />
+    <Compile Include="Persistence\Commands\RestoreJournal.cs" />
+    <Compile Include="Persistence\Commands\RestoredSnapshot.cs" />
+    <Compile Include="Persistence\Commands\RestoredJournal.cs" />
+    <Compile Include="Persistence\Commands\CreateSnapshot.cs" />
+    <Compile Include="Persistence\Commands\AppendEvent.cs" />
+    <Compile Include="Persistence\Commands\Unload.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Persistence\" />
+    <Folder Include="Persistence\Commands\" />
   </ItemGroup>
 </Project>
