@@ -28,26 +28,36 @@ namespace AkkaDemo.Persistence
     {
         public IStash Stash { get; set; }
 
-        private int id;
-        private Type aggregateRootType;
+        // configurable options TODO: read from config, move into *writer/reader
+        private readonly string storageDir =
+            System.IO.Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "storage"
+            );
 
+        // infos about the aggregate root
+        private Type aggregateRootType;
+        private int id;
+
+        // our current state
         private int sequenceNr;
 
-        private IActorRef journalWriter;
-        private IActorRef journalReader;
-        private IActorRef snapshotWriter;
-        private IActorRef snapshotReader;
+        private IActorRef journal;
+        private IActorRef snapshot;
         private IActorRef aggregateRoot;
 
 
-        public PersistenceProxy(int id, Type aggregateRootType)
+        public PersistenceProxy(Type aggregateRootType, int id)
         {
-            this.id = id;
             this.aggregateRootType = aggregateRootType;
+            this.id = id;
 
             sequenceNr = 0;
 
             // erzeugen neue Aktoren für journal*, snapshot*, aggregateRoot, unloadTimer
+            journal = Context.ActorOf(
+                Props.Create<FileJournal>(aggregateRootType, id, storageDir)
+            );
 
             Become(Loading);
         }
@@ -55,13 +65,19 @@ namespace AkkaDemo.Persistence
         #region behaviors
         private void Loading()
         {
+            /* TODOs
+             *  - Fehler beim Journal/Snapshot Schreiben
+             *  - Absturz des (Journal/Snapshot)(Writer/Reader)
+             *  - Fehler beim Journal/Snapshot lesen
+             */
+
             // Commands:
             Receive<RestoreSnapshot>(_ => 
-                snapshotReader.Tell(new RestoreSnapshot())
+                snapshot.Tell(new RestoreSnapshot())
             );
 
             Receive<RestoreJournal>(restoreJournal =>
-                journalReader.Tell(restoreJournal)
+                journal.Tell(restoreJournal)
             );
 
             // Events:

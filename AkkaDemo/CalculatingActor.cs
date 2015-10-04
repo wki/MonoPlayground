@@ -6,6 +6,8 @@ namespace AkkaDemo
 {
     public class CalculatingActor : ReceiveActor
     {
+        // private IActorRef logger = Context.ActorOf<LogActor>();
+
         public int Value { get; private set; }
 
         #region Message Types

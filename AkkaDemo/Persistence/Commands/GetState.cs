@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AkkaDemo
+namespace AkkaDemo.Persistence
 {
     public class GetState
     {

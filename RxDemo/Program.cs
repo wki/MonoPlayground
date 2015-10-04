@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Collections.Generic;
 // using System.Threading;
+using System.Threading;
 
 namespace RxDemo
 {
@@ -12,10 +13,10 @@ namespace RxDemo
     {
         public static void Main(string[] args)
         {
-            // HelloWorld();
+            HelloWorld();
             // Test();
             // Grouping();
-            FloatingWindow();
+            // FloatingWindow();
 
             Console.WriteLine("Done with all.");
             Console.ReadLine();
@@ -26,7 +27,7 @@ namespace RxDemo
         {
             var xs = "Hello World".ToObservable();
 
-            xs.Subscribe(x => Console.WriteLine(x));
+            xs.Subscribe(x => { Console.WriteLine(x); Thread.Sleep(TimeSpan.FromMilliseconds(500)); });
         }
 
         public static void ExperimentalStuff()
