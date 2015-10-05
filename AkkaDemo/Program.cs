@@ -8,7 +8,7 @@ namespace AkkaDemo
     {
         public static void Main(string[] args)
         {
-            var actorSystem = new ActorSystem();
+            var actorSystem = ActorSystem.Create("System");
 
             var calculator = actorSystem.ActorOf(Props.Create<CalculatingActor>());
 

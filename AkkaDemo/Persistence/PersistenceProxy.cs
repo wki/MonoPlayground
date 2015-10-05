@@ -108,7 +108,7 @@ namespace AkkaDemo.Persistence
         private void Receiving()
         {
             // Commands:
-            Receive<CreateSnapshot>(createSnapshot => snapshotWriter.Tell(createSnapshot));
+            Receive<CreateSnapshot>(createSnapshot => snapshot.Tell(createSnapshot));
 
             Receive<Unload>(_ => Become(Unloading));
 
@@ -119,7 +119,7 @@ namespace AkkaDemo.Persistence
             Receive<object>(message =>
                 {
                     // FIXME: wie können wir Events von Commands unterscheiden?
-                    journalWriter.Tell(new AppendEvent(message));
+                    journal.Tell(new AppendEvent(message));
                     aggregateRoot.Tell(message, Sender);
                 }
             );
