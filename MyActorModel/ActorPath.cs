@@ -6,38 +6,34 @@ namespace MyActorModel
 {
     public class ActorPath
     {
-        private IActorSystem system;
-        public string Root { get; private set; }
-        private List<string> pathParts;
+        // private IActorSystem System;
+        // public string Root { get; private set; }
+        private List<string> PathParts;
 
-        public ActorPath(IActorSystem system, IEnumerable<string> path)
+        public ActorPath(IEnumerable<string> path)
         {
-            this.system = system;
-            Root = "FIXME@localhost";
-            pathParts = new List<string>(path);
+            // Root = "FIXME@localhost";
+            PathParts = new List<string>(path);
         }
 
         public string Address
         {
-            get
+            get 
             { 
-                return String.Format("{0}/{1}",
-                    Root,
-                    String.Join("/", pathParts)
-                );
+                return String.Join("/", PathParts);
             }
         }
 
         public IEnumerable<string> Elements()
         {
-            return pathParts;
+            return PathParts;
         }
 
         public string Name
         {
             get
             {
-                return pathParts.Last();
+                return PathParts.Last();
             }
         }
 
@@ -45,15 +41,15 @@ namespace MyActorModel
         {
             get
             {
-                return pathParts.Any() 
-                    ? new ActorPath(system, pathParts.Take(pathParts.Count - 1))
+                return PathParts.Any() 
+                    ? new ActorPath(PathParts.Take(PathParts.Count - 1))
                     : null;
             }
         }
 
         public ActorPath Child(string name)
         {
-            return new ActorPath(system, pathParts.Concat(new [] { name }));
+            return new ActorPath(PathParts.Concat(new [] { name }));
         }
 
         public override string ToString()

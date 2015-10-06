@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MyActorModel
 {
-    public class Actor : IDisposable
+    public class Actor : Node, IDisposable
     {
         public IActorRef Self { get; private set; }
         public IActorRef Sender { get; private set; }
@@ -63,7 +63,7 @@ namespace MyActorModel
         }
 
         // low level version -- put a message into mailbox
-        internal void QueueMessage(IMessage message, IActorRef sender)
+        internal void QueueMessage(object  message, IActorRef sender)
         {
             mailbox.OnNext(new Envelope(message, sender));
         }
