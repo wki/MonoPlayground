@@ -13,20 +13,29 @@ namespace AsyncDemo
             while (true)
             {
                 // Start computation.
-                Example();
+                var task = Example();
+
+                Console.WriteLine("Computation started. Thread: {0}", task.Id);
 
                 // Handle user input.
-                Console.WriteLine("Please enter a line of test:");
+                Console.WriteLine("Please enter a line of text ('wait' to wait for task):");
                 string result = Console.ReadLine();
                 Console.WriteLine("You typed: " + result);
+
+                if (result == "wait")
+                {
+                    Console.WriteLine("Waiting for task {0}", task.Id);
+                    task.Wait();
+                    Console.WriteLine("Task {0} finished", task.Id);
+                }
             }
         }
 
-        static async void Example()
+        static async Task Example()
         {
             // This method runs asynchronously.
             int t = await Task.Run(() => Allocate());
-            Console.WriteLine("Compute: " + t);
+            Console.WriteLine("Computation: {0}", t);
         }
 
         static int Allocate()
