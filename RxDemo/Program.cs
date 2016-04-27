@@ -13,8 +13,8 @@ namespace RxDemo
     {
         public static void Main(string[] args)
         {
-            HelloWorld();
-            // Test();
+            // HelloWorld();
+            Test();
             // Grouping();
             // FloatingWindow();
 
@@ -38,9 +38,10 @@ namespace RxDemo
         public static void Test()
         {
             var s = new Subject<int>();
-            using (s.Subscribe(i => Console.WriteLine("Next: {0}", i)))
-            {
+            using (s.Subscribe (i => Console.WriteLine ("Thread: {0}, Next: {1}", Thread.CurrentThread.ManagedThreadId, i)))
+            using (s.Subscribe (i => { Console.WriteLine("Thread: {0}, and also Next: {1}", Thread.CurrentThread.ManagedThreadId, i); Thread.Sleep (TimeSpan.FromSeconds (1)); })) {
                 s.OnNext(42);
+                s.OnNext(43);
             }
         }
 
