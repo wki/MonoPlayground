@@ -8,7 +8,7 @@ namespace AkkaDemo
     {
         // private IActorRef logger = Context.ActorOf<LogActor>();
 
-        public int Value { get; private set; }
+        private int Value { get; set; }
 
         #region Message Types
         public class AskValue

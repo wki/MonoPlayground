@@ -10,35 +10,33 @@ namespace AkkaDemo.Tests
     [TestFixture]
     public class Test : TestKit
     {
-        TestActorRef<CalculatingActor> calculatingActor;
+        //TestActorRef<CalculatingActor> calculatingActor;
+        IActorRef calculatingActor;
 
         [SetUp]
         public void SetUp()
         {
-            this.calculatingActor = ActorOfAsTestActorRef<CalculatingActor>(
-                Props.Create(() => new CalculatingActor())
+//            this.calculatingActor = ActorOfAsTestActorRef<CalculatingActor>(
+//                Props.Create<CalculatingActor>()
+//            );
+            this.calculatingActor = Sys.ActorOf(
+                Props.Create<CalculatingActor>()
             );
+
         }
 
         [Test]
-        public void Value_Initially_Is0()
-        {
-            // Assert
-            Assert.AreEqual(0, calculatingActor.UnderlyingActor.Value);
-        }
-
-        [Test]
-        public void Value_AfterAdding5_Is5()
+        public void AddToValue_WithValue_HasNoResult()
         {
             // Act
             calculatingActor.Tell(new CalculatingActor.AddMessage(5));
 
             // Assert
-            Assert.AreEqual(5, calculatingActor.UnderlyingActor.Value);
+            ExpectNoMsg();
         }
 
         [Test]
-        public void ReturnValue_SendsInt()
+        public void Value_Initially_Is0()
         {
             // Act
             calculatingActor.Tell(new CalculatingActor.AskValue());
@@ -46,6 +44,18 @@ namespace AkkaDemo.Tests
             // Assert
             var answer = ExpectMsg<int>();
             Assert.AreEqual(0, answer);
+        }
+
+        [Test]
+        public void Value_AfterAdding5_Is5()
+        {
+            // Act
+            calculatingActor.Tell(new CalculatingActor.AddMessage(5));
+            calculatingActor.Tell(new CalculatingActor.AskValue());
+
+            // Assert
+            var answer = ExpectMsg<int>();
+            Assert.AreEqual(5, answer);
         }
     }
 }

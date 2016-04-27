@@ -6,6 +6,7 @@ using System.Reactive.Subjects;
 using System.Collections.Generic;
 // using System.Threading;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace RxDemo
 {
@@ -14,9 +15,10 @@ namespace RxDemo
         public static void Main(string[] args)
         {
             // HelloWorld();
-            Test();
+            // Test();
             // Grouping();
             // FloatingWindow();
+            ExperimentalStuff();
 
             Console.WriteLine("Done with all.");
             Console.ReadLine();
@@ -32,14 +34,49 @@ namespace RxDemo
 
         public static void ExperimentalStuff()
         {
+            //Observable.Create<int>(observer =>
+            //{
+            //    observer.OnNext(42);
+
+            //    return Task.FromResult(0);
+            //});
+
+            var observable = Observable.Create<int>(o =>
+            {
+                var cts = new CancellationTokenSource();
+
+                Console.WriteLine("Starting Observable, Thread:{0}", Thread.CurrentThread.ManagedThreadId);
+
+                return Task.Run(() =>
+                {
+                    Console.WriteLine("Inside Thread:{0}", Thread.CurrentThread.ManagedThreadId);
+
+                    // falls Schleife: dann innerhalb...
+                    cts.Token.ThrowIfCancellationRequested();
+
+                    o.OnNext(42);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                    o.OnNext(43);
+                    Thread.Sleep(TimeSpan.FromSeconds(1));
+                    o.OnNext(44);
+
+                    o.OnCompleted();
+                }, cts.Token);
+            });
+
+            observable.Subscribe(x => Console.WriteLine("Thread: {0}, Got: {1}", Thread.CurrentThread.ManagedThreadId, x));
+            observable.Subscribe(x => { Console.WriteLine("Thread: {0}, Got: {1}", Thread.CurrentThread.ManagedThreadId, x); Thread.Sleep(TimeSpan.FromSeconds(3)); });
+
+            Thread.Sleep(TimeSpan.FromSeconds(10));
         }
 
         // observe one event occuring
         public static void Test()
         {
             var s = new Subject<int>();
-            using (s.Subscribe (i => Console.WriteLine ("Thread: {0}, Next: {1}", Thread.CurrentThread.ManagedThreadId, i)))
-            using (s.Subscribe (i => { Console.WriteLine("Thread: {0}, and also Next: {1}", Thread.CurrentThread.ManagedThreadId, i); Thread.Sleep (TimeSpan.FromSeconds (1)); })) {
+            using (s.Subscribe(i => Console.WriteLine("Thread: {0}, Next: {1}", Thread.CurrentThread.ManagedThreadId, i)))
+            using (s.Subscribe(i => { Console.WriteLine("Thread: {0}, and also Next: {1}", Thread.CurrentThread.ManagedThreadId, i); Thread.Sleep(TimeSpan.FromSeconds(1)); })) 
+            {
                 s.OnNext(42);
                 s.OnNext(43);
             }

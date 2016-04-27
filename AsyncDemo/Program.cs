@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 
 namespace AsyncDemo
@@ -13,9 +13,13 @@ namespace AsyncDemo
             while (true)
             {
                 // Start computation.
+<<<<<<< Updated upstream
                 var task = Example();
 
                 Console.WriteLine("Computation started. Thread: {0}", task.Id);
+=======
+                // Example();
+>>>>>>> Stashed changes
 
                 // Handle user input.
                 Console.WriteLine("Please enter a line of text ('wait' to wait for task):");
@@ -31,7 +35,18 @@ namespace AsyncDemo
             }
         }
 
+<<<<<<< Updated upstream
         static async Task Example()
+=======
+        static async void RunInThread(Action action)
+        {
+            Console.WriteLine("Starting Thread");
+            await new Task(action);
+
+        }
+
+        static async void Example()
+>>>>>>> Stashed changes
         {
             // This method runs asynchronously.
             int t = await Task.Run(() => Allocate());
